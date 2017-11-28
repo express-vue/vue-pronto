@@ -4,7 +4,6 @@
   "description": "Seriously fast vue server renderer",
   "main": "index.js",
   "dependencies": {
-    "babel-cli": "^6.26.0",
     "browserify": "^14.5.0",
     "butternut": "^0.4.6",
     "express": "^4.16.2",
@@ -22,14 +21,35 @@
     "vuetify": "^0.16.9"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.2",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "eslint": "^4.10.0",
-    "flow": "^0.2.3"
+    "eslint-config-xo-space": "^0.17.0",
+    "eslint-plugin-flowtype": "^2.39.1",
+    "flow": "^0.2.3",
+    "flow-remove-types": "^1.2.3"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "release": "generate-release",
+    "flow": "flow",
+    "debug": "npm run build && node --inspect tests/example/app.js",
+    "start": "npm run build && node tests/example/index.js",
+    "debug-windows": "npm run build-windows && node --inspect tests/example/app.js",
+    "start-windows": "npm run build-windows && node tests/example/app.js",
+    "prepublish": "npm run build && nsp check",
+    "pretest": "eslint . --fix",
+    "test": "eslint src && nyc ava",
+    "clean": "rm -rf lib",
+    "clean-windows": "rd /s /q lib",
+    "coverage": "nyc report --reporter=lcov > coverage.lcov && codecov",
+    "remove-flow": "flow-remove-types src/ -d lib/ -p -i .flow",
+    "build": "npm run clean && npm run remove-flow",
+    "build-windows": "npm run clean-windows && npm run remove-flow && copy \"src\\index.d.ts\" \"lib\\index.d.ts\" && copy \"src\\index.js.flow\" \"lib\\index.js.flow\"",
+    "preversion": "npm test",
+    "version": "npm run build"
   },
   "author": "Daniel Cherubini",
   "license": "ISC",
