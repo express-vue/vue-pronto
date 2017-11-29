@@ -7,13 +7,10 @@ const vueify = require("vueify");
 const vueServerRenderer = require("vue-server-renderer");
 const Vue = require("vue");
 const butternut = require("butternut");
+const uglify = require("uglify-js");
 const LRU = require("lru-cache");
 const processStyle = require("./process-style").processStyle;
 
-
-const renderFunctionRegex = /(?:__vue__options__.render=function\(\){)(.*)(?:};__)/gm;
-const staticRenderFunctionsRegex = /(?:__vue__options__.staticRenderFns=\[)(.*)(?:\])/gm;
-const exportsRegex = /(?:module.exports={)(.*)(?:}}\(\);)/gm;
 
 class Renderer {
     cacheOptions: {
@@ -50,32 +47,71 @@ class Renderer {
 
         this.lruCache = LRU(this.cacheOptions);
     }
-    FixData(oldData, newData) {
+    FixData(oldData: Object, newData: Object) {
         const mergedData = Object.assign({}, oldData, newData);
         return function() {
             return mergedData;
         };
     }
-    BuildComponent(componentFile, filePath, vueComponentMatch) {
+    BuildComponent(componentFile: string, filePath: string, vueComponentMatch: string): Promise<{compiled: string, filePath: string, match: string}> {
         return new Promise((resolve, reject) => {
             const relativePath = path.resolve(path.parse(filePath).dir, componentFile);
             this.Compile(relativePath)
                 .then(compiled => {
-                    const {code} = butternut.squash(compiled.compiled);
-                    const moduleExports = exportsRegex.exec(code)[1];
-                    const renderFunctionContents = renderFunctionRegex.exec(code)[1];
-                    const staticRenderFns = staticRenderFunctionsRegex.exec(code)[1];
-                    const vueComponent = `{${moduleExports},render: function render() {${renderFunctionContents}},staticRenderFns: [${staticRenderFns}]}`;
-                    resolve({
-                        compiled: vueComponent,
-                        filePath: relativePath,
-                        match: vueComponentMatch
-                    });
+                    
+                    this.FindAndReplaceComponents(compiled.compiled, filePath)
+                        .then((codeString) => {
+                            const renderFunctionRegex = /(?:__vue__options__.render=function\(\){)(.*)(?:};?,?__)/gm;
+                            const staticRenderFunctionsRegex = /(?:__vue__options__.staticRenderFns=\[)(.*)(?:\])/gm;
+                            const exportsRegex = /(?:module.exports={)(.*)(?:}}\(\);?)/gm;
+                            const importsRegex = /(?:"use strict";?)(.*)(?:module.exports={)/gm;
+        
+                            let imports = "";
+                            let moduleExports = "";
+                            let renderFunctionContents = "";
+                            let staticRenderFns = "";
+
+                            // const {code, map} = butternut.squash(compiled.compiled);
+                            const {code} = uglify.minify(codeString, {mangle:false});
+                            // const code = compiled.compiled.replace(/(\r\n\t\s{2,}|\n|\r|\t|\s{2,})/gm,"");
+                            // let code = compiled.compiled;
+                            const importMatches = importsRegex.exec(code);
+                            if (importMatches && importMatches.length > 0) {
+                                imports = importMatches[1];
+                            }
+
+                            const exportMatches = exportsRegex.exec(code);
+                            if (exportMatches && exportMatches.length > 0) {
+                                moduleExports = exportMatches[1];
+                            }
+                            const renderFunctionMatches = renderFunctionRegex.exec(code);
+                            if (renderFunctionMatches && renderFunctionMatches.length > 0) {
+                                renderFunctionContents = `,render: function render() {${renderFunctionMatches[1]}}`;
+                            }
+                            const staticRenderMatches = staticRenderFunctionsRegex.exec(code);
+                            if (staticRenderMatches && staticRenderMatches.length > 0) {
+                                staticRenderFns = `,staticRenderFns: [${staticRenderMatches[1]}]`;
+                            }
+                            let vueComponent = "";
+                            if (imports === "") {
+                                vueComponent = `{${moduleExports}${renderFunctionContents}${staticRenderFns}}`;
+                            } else {
+                                vueComponent = `function () {${imports}return {${moduleExports}${renderFunctionContents}${staticRenderFns}}}()`;
+                            }
+                            
+                            resolve({
+                                compiled: vueComponent,
+                                filePath: filePath,
+                                match: vueComponentMatch
+                            });
+                        }).catch(error => {
+                            reject(error);
+                        });
                 })
                 .catch(reject);
         });
     }
-    FindAndReplaceComponents(code, filePath) {
+    FindAndReplaceComponents(code: string, filePath: string): Promise<string> {
         return new Promise((resolve, reject) => {
             const vueFileRegex = /([\w/.\-@_\d]*\.vue)/igm;
             const requireRegex = /(require\(['"])([\w:/.\-@_\d]*\.vue)(['"]\))/igm;
@@ -83,10 +119,10 @@ class Renderer {
             if (vueComponentMatches && vueComponentMatches.length > 0) {
                 let promiseArray = [];
                 for (let index = 0; index < vueComponentMatches.length; index++) {
-                    let vueComponentMatch = vueComponentMatches[index];
-                    const vueComponentFile = vueComponentMatch.match(vueFileRegex)[0];
-                    if (vueComponentFile) {
-                        promiseArray.push(this.BuildComponent(vueComponentFile, filePath, vueComponentMatch));
+                    const vueComponentMatch = vueComponentMatches[index];
+                    const vueComponentFile = vueComponentMatch.match(vueFileRegex);
+                    if (vueComponentFile && vueComponentFile.length > 0) {
+                        promiseArray.push(this.BuildComponent(vueComponentFile[0], filePath, vueComponentMatch));
                     }
                 }
                 Promise.all(promiseArray).then(renderedItemArray => {
@@ -105,7 +141,7 @@ class Renderer {
             }
         });
     }
-    Compile(filePath) {
+    Compile(filePath: string): Promise<{compiled: string, style: string}> {
         return new Promise((resolve, reject) => {
             fs.readFile(filePath, function(err, fileContent) {
                 if (err) {
@@ -143,7 +179,7 @@ class Renderer {
             });
         });
     }
-    MakeBundle(stringFile, filePath) {
+    MakeBundle(stringFile: string, filePath: string): Promise<Object> {
         return new Promise((resolve, reject) => {
             this.FindAndReplaceComponents(stringFile, filePath)
                 .then(code => {
@@ -153,7 +189,7 @@ class Renderer {
                 .catch(reject);
         });
     }
-    MakeVueClass(filePath, data) {
+    MakeVueClass(filePath: string, data: Object): Promise<{vue: Vue, css: string}> {
         return new Promise((resolve, reject) => {
             const cachedBundle = this.lruCache.get(filePath);
             if (cachedBundle) {

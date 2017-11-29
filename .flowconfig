@@ -1,0 +1,12 @@
+[ignore]
+.*/example/*.
+.*/node_modules/vue/src/*.
+
+[include]
+
+[libs]
+flow-typed
+
+[options]
+
+[lints]

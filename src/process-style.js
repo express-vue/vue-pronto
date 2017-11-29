@@ -6,11 +6,10 @@ const path = require("path");
 const chalk = require("chalk");
 
 
-function processStyle (part, filePath, id, parts) {
+function processStyle (part: Object, filePath: string, id: string, parts: any): Promise<any> {
     var style = getContent(part, filePath);
     return compileAsPromise("style", style, part.lang, filePath)
         .then(function (res) {
-            res = res.trim();
             parts.styles.push(res);
         // return rewriteStyle(id, res, part.scoped, options).then(function (res) {
         //   parts.styles.push(res)
@@ -51,7 +50,7 @@ function compileAsPromise (type, source, lang, filePath) {
                     }
                     return reject(err);
                 }
-                resolve(res);
+                resolve(res.trim());
             }, compile, filePath);
         });
     } else {
