@@ -16,32 +16,49 @@ Include the library at the top level like so
 const Pronto = require('vue-pronto');
 ```
 
-The library returns a function called `renderer`
+Then init the renderer
 
+```js
+const renderer = new Pronto({object});
+```
+
+This returns 2 main functions.
 It takes 3 params, 2 required and one optional.
-
 ```js
-Pronto.renderer(componentPath, data, [vueOptions])
+renderer.RenderToString(componentPath, data, [vueOptions]);
+renderer.RenderToStream(componentPath, data, [vueOptions]);
 ```
 
-The promise returns an object called `app`, or an `error`
+Both methods return a promise. Stream returns a stream, and String returns a string.
+
+## RenderToStream
 
 
-```js
+### renderer.RenderToStream(vuefile, data, vueOptions) ⇒ <code>Promise</code>
+renderToStream returns a stream from res.renderVue to the client
 
-Pronto.renderer(componentPath, data, [vueOptions])
-    .then(app => {
-        //App is an object that contains 4 parts
-        head: //a string of the head,
-        app: //the VueJS App Object,
-        script: //the script string including the <script> elements,
-        template: //the template, if no template was passed into vueOptions,
-        //it uses a backup template
-    })
-    .catch(error => {
-        //Do something with the error here
-    });
-```
+**Kind**: instance method of [<code>Renderer</code>](#Renderer)
+**Returns**: <code>Promise</code> - - Promise returns a Stream
+
+| Param | Type | Description |
+| --- | --- | --- |
+| vuefile | <code>string</code> | full path to .vue component |
+| data | <code>Object</code> | data to be inserted when generating vue class |
+| vueOptions | <code>Object</code> | vue options to be used when generating head |
+
+## RenderToString
+
+### renderer.RenderToString(vuefile, data, vueOptions) ⇒ <code>Promise</code>
+renderToStream returns a string from res.renderVue to the client
+
+**Kind**: instance method of [<code>Renderer</code>](#Renderer)
+
+| Param | Type |
+| --- | --- |
+| vuefile | <code>string</code> |
+| data | <code>object</code> |
+| vueOptions | <code>object</code> |
+
 
 ## VueOptions
 
@@ -92,3 +109,4 @@ Apache-2.0 © [Daniel Cherubini](https://github.com/express-vue)
 [daviddm-url]: https://david-dm.org/express-vue/vue-pronto
 [cov-image]: https://codecov.io/gh/express-vue/vue-pronto/branch/master/graph/badge.svg
 [cov-url]: https://codecov.io/gh/express-vue/vue-pronto
+
