@@ -1,7 +1,3 @@
-if (process.env.DEBUG) {
-    require("babel-register"); 
-}
-
 const express = require('express');
 const app = express();
 const path = require("path");

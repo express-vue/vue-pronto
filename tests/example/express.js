@@ -1,10 +1,5 @@
 "use strict";
-let Renderer;
-if (process.env.DEBUG) {
-    Renderer = require("../../src");
-} else {
-    Renderer = require("../../lib");
-}
+let Renderer = require("../../lib");
 
 
 //This is the Middlewarein express-vue this wont be in the file
