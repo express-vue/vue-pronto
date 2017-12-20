@@ -6,12 +6,17 @@
     "parserOptions": {
         "sourceType": "module"
     },
-    "plugins": [
-        "flowtype"
-    ],
     "extends": "eslint:recommended",
     "parser": "babel-eslint",
     "rules": {
+        "valid-jsdoc":[
+            "error",
+            {
+                "requireParamDescription": false,
+                "requireReturnDescription": false
+            }
+        ],
+        "require-jsdoc":"error",
         "indent": [
             "error",
             4,

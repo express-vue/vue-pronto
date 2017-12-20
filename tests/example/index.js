@@ -1,7 +1,7 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 const path = require("path");
-const renderer = require("../../lib/express");
+const renderer = require("./express");
 
 const evr = renderer.init();
 app.use(evr);
