@@ -1,14 +1,14 @@
 //@ts-check
 const test = require("ava");
 const path = require("path");
-const Renderer = require("../lib");
+const Pronto = require("../lib");
 
 const vueFile = path.join(__dirname, "example/test2.vue");
 
 
 //@ts-ignore
 test('String returns with full object', t => {
-    const renderer = new Renderer({});
+    const renderer = new Pronto({});
     const data = {
         bar: true,
         fakehtml: "<p class=\"red\">FAKEHTML</p>"
@@ -31,7 +31,7 @@ test('String returns with full object', t => {
 
 //@ts-ignore
 test('String returns with no object', t => {
-    const renderer = new Renderer({});
+    const renderer = new Pronto({});
     const resultHalf = `<!DOCTYPE html>\n<html lang="en">\n<head>\n<title></title>\n<style>\n.red {\n  color: #f00;\n}\n</style>\n</head>\n<body>\n<div data-server-rendered="true"><h1 class="red">Hello world!</h1> <div><h2>Hello from component</h2> <h2>Hello from subcomponent</h2></div> <p></p> <div></div></div>\n</body>\n</html>`
     return renderer.RenderToString(vueFile, {}, {})
         .then(rendered => {
