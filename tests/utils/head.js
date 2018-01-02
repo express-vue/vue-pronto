@@ -1,5 +1,5 @@
 const test = require("ava");
-const Utils = require("../lib/utils");
+const Utils = require("../../lib/utils");
 
 
 test.cb('General Head', t => {

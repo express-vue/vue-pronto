@@ -19,7 +19,7 @@ test('String returns with full object', t => {
         title: "Test",
         template: templateLiteral
     };
-    const resultFull = `<!DOCTYPE html>\n<html lang="en">\n<head>\n<title>Test</title>\n<style>\n.red {\n  color: #f00;\n}\n</style>\n</head>\n<body>\n<h1>FOOOOO</h1>\n<div data-server-rendered="true"><h1 class="red">Hello world!</h1> <div><h2>Hello from component</h2> <h2>Hello from subcomponent</h2></div> <p>true</p> <div><p class="red">FAKEHTML</p></div></div>\n</body>\n</html>`
+    const resultFull = `<!DOCTYPE html><html><head><style type="text/css">\n.red {\n  color: #f00;\n}\n</style></head><body><div id="app"><div data-server-rendered="true"><h1 class="red">Hello world!</h1> <div><h2>Hello from component</h2> <h2>Hello from subcomponent</h2></div> <p>true</p> <div><p class="red">FAKEHTML</p></div></div></div></body></html>`
     return renderer.RenderToString(vueFile, data, vueOptions)
         .then(rendered => {
             t.is(rendered, resultFull);
@@ -32,10 +32,10 @@ test('String returns with full object', t => {
 //@ts-ignore
 test('String returns with no object', t => {
     const renderer = new Pronto({});
-    const resultHalf = `<!DOCTYPE html>\n<html lang="en">\n<head>\n<title></title>\n<style>\n.red {\n  color: #f00;\n}\n</style>\n</head>\n<body>\n<div data-server-rendered="true"><h1 class="red">Hello world!</h1> <div><h2>Hello from component</h2> <h2>Hello from subcomponent</h2></div> <p></p> <div></div></div>\n</body>\n</html>`
+    const expected = `<!DOCTYPE html><html><head><style type="text/css">\n.red {\n  color: #f00;\n}\n</style></head><body><div id="app"><div data-server-rendered="true"><h1 class="red">Hello world!</h1> <div><h2>Hello from component</h2> <h2>Hello from subcomponent</h2></div> <p></p> <div></div></div></div></body></html>`
     return renderer.RenderToString(vueFile, {}, {})
         .then(rendered => {
-            t.is(rendered, resultHalf);
+            t.is(rendered, expected);
         })
         .catch(error => {
             t.error(error);
