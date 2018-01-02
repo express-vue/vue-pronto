@@ -25,8 +25,12 @@ app.get('/', function (req, res) {
         </body>
     </html>`
     const vueOptions = {
-        title: "Test",
-        template: templateLiteral
+        head: {
+            title: "Test"
+        },
+        layout: {
+            literal: templateLiteral
+        }
     };
     res.renderVue(vuefile, data, vueOptions); 
 })
