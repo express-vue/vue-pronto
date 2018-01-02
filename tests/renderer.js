@@ -19,7 +19,7 @@ test('String returns with full object', t => {
         title: "Test",
         template: templateLiteral
     };
-    const resultFull = `<!DOCTYPE html><html><head><style type="text/css">\n.red {\n  color: #f00;\n}\n</style></head><body><div id="app"><div data-server-rendered="true"><h1 class="red">Hello world!</h1> <div><h2>Hello from component</h2> <h2>Hello from subcomponent</h2></div> <p>true</p> <div><p class="red">FAKEHTML</p></div></div></div></body></html>`
+    const resultFull = `<!DOCTYPE html><html><head><style type="text/css">\n.red {\n  color: #f00;\n}\n</style></head><body><div id="app"><div data-server-rendered="true"><h1 class="red">Hello world!</h1> <div><h2>Hello from component</h2> <h2>Hello from subcomponent</h2></div> <p>true</p> <div><p class="red">FAKEHTML</p></div></div></div><script>(function () {'use strict';var createApp = function () {return new Vue()};if (typeof module !== 'undefined' && module.exports) {module.exports = createApp} else {this.app = createApp()}}).call(this);app.$mount('#app');</script></body></html>`
     return renderer.RenderToString(vueFile, data, vueOptions)
         .then(rendered => {
             t.is(rendered, resultFull);
@@ -32,7 +32,7 @@ test('String returns with full object', t => {
 //@ts-ignore
 test('String returns with no object', t => {
     const renderer = new Pronto({});
-    const expected = `<!DOCTYPE html><html><head><style type="text/css">\n.red {\n  color: #f00;\n}\n</style></head><body><div id="app"><div data-server-rendered="true"><h1 class="red">Hello world!</h1> <div><h2>Hello from component</h2> <h2>Hello from subcomponent</h2></div> <p></p> <div></div></div></div></body></html>`
+    const expected = `<!DOCTYPE html><html><head><style type="text/css">\n.red {\n  color: #f00;\n}\n</style></head><body><div id="app"><div data-server-rendered="true"><h1 class="red">Hello world!</h1> <div><h2>Hello from component</h2> <h2>Hello from subcomponent</h2></div> <p></p> <div></div></div></div><script>(function () {'use strict';var createApp = function () {return new Vue()};if (typeof module !== 'undefined' && module.exports) {module.exports = createApp} else {this.app = createApp()}}).call(this);app.$mount('#app');</script></body></html>`
     return renderer.RenderToString(vueFile, {}, {})
         .then(rendered => {
             t.is(rendered, expected);
