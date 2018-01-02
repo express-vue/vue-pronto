@@ -26,7 +26,10 @@ app.get('/', function (req, res) {
     </html>`
     const vueOptions = {
         head: {
-            title: "Test"
+            title: "Test",
+            meta: [
+                { script: 'https://unpkg.com/vue@2.4.4/dist/vue.js' }
+            ]
         },
         layout: {
             literal: templateLiteral

@@ -11,7 +11,8 @@
     "vue": "^2.5.13",
     "vue-server-renderer": "^2.5.13",
     "vue-template-compiler": "^2.5.13",
-    "vueify": "^9.4.1"
+    "vueify": "^9.4.1",
+    "xss": "^0.3.7"
   },
   "devDependencies": {
     "@types/lru-cache": "^4.1.0",

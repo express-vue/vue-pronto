@@ -17,7 +17,7 @@ test.cb('General Head', t => {
             { rel: 'icon', type: 'image/png', href: '/assets/favicons/favicon-32x32.png', sizes: '32x32' }
         ]
     } 
-    const expected = `<meta name="application-name" content="Name of my application" /><meta name="description" content="A description of the page" id="desc" /><meta name="twitter:title" content="Content Title" /><meta property="fb:app_id" content="123456789" /><meta property="og:title" content="Content Title" /><script src="/assets/scripts/hammer.min.js" charset="utf-8" /><script src="/assets/scripts/vue-touch.min.js" charset="utf-8" /><link rel="stylesheet" href="/assets/rendered/style.css" type="text/css" /><link rel="stylesheet" href="/assets/rendered/style.css" type="text/css" /><link rel="icon" type="image/png" href="/assets/favicons/favicon-32x32.png" sizes="32x32" />`
+    const expected = `<meta name="application-name" content="Name of my application" /><meta name="description" content="A description of the page" id="desc" /><meta name="twitter:title" content="Content Title" /><meta property="fb:app_id" content="123456789" /><meta property="og:title" content="Content Title" /><script src="/assets/scripts/hammer.min.js" charset="utf-8" ></script><script src="/assets/scripts/vue-touch.min.js" charset="utf-8" ></script><link rel="stylesheet" href="/assets/rendered/style.css" type="text/css" /><link rel="stylesheet" href="/assets/rendered/style.css" type="text/css" /><link rel="icon" type="image/png" href="/assets/favicons/favicon-32x32.png" sizes="32x32" />`
     const result = Utils.BuildHead(head);
     t.is(result, expected);
     t.end();
@@ -33,7 +33,7 @@ test.cb('Script Head', t => {
             { script: '/assets/scripts/hammer.min.js', defer: true, async: true },
         ]
     }
-    const expected = `<script src="/assets/scripts/hammer.min.js" charset="utf-8" /><script src="/assets/scripts/vue-touch.min.js" charset="utf-8" /><script src="/assets/scripts/hammer.min.js" charset="utf-8" async /><script src="/assets/scripts/hammer.min.js" charset="utf-8" defer /><script src="/assets/scripts/hammer.min.js" charset="utf-8" async defer />`
+    const expected = `<script src="/assets/scripts/hammer.min.js" charset="utf-8" ></script><script src="/assets/scripts/vue-touch.min.js" charset="utf-8" ></script><script src="/assets/scripts/hammer.min.js" charset="utf-8" async ></script><script src="/assets/scripts/hammer.min.js" charset="utf-8" defer ></script><script src="/assets/scripts/hammer.min.js" charset="utf-8" async defer ></script>`
     const result = Utils.BuildHead(head);
     t.is(result, expected);
     t.end()
