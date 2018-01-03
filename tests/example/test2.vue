@@ -14,8 +14,8 @@
 </template>
  
 <script>
-  const foo = require("./component.vue");
-  module.exports = {
+  import foo from "./components/component.vue";
+  export default {
     data: function () {
       return {
         msg: 'Hello world!'
