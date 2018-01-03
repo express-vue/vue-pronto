@@ -26,7 +26,26 @@ app.get('/', function (req, res) {
         layout: {
         }
     };
-    res.renderVue("test2.vue", data, vueOptions); 
+    res.renderVue("index.vue", data, vueOptions); 
+})
+
+app.get('/example2', function (req, res) {
+    const data = {
+        bar: true,
+        fakehtml: "<p class=\"red\">FAKEHTML</p>"
+    }
+
+    const vueOptions = {
+        head: {
+            title: "Test",
+            meta: [
+                { script: 'https://unpkg.com/vue@2.4.4/dist/vue.js' }
+            ]
+        },
+        layout: {
+        }
+    };
+    res.renderVue("example2/views/index.vue", data, vueOptions); 
 })
 
 app.listen(3000, function () {
