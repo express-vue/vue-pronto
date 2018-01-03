@@ -1,8 +1,11 @@
 {
   "name": "vue-pronto",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Seriously fast vue server renderer",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "files": [
+    "lib/**/*.js"
+  ],
   "dependencies": {
     "insert-css": "^2.0.0",
     "lru-cache": "^4.1.1",
