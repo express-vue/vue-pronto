@@ -4,7 +4,13 @@ const path = require("path");
 const renderer = require("./express");
 
 const evrOptions = {
-    rootPath: path.normalize(__dirname)
+    rootPath: path.normalize(__dirname),
+    head: {
+        title: "Test",
+        meta: [
+            { script: 'https://unpkg.com/vue@2.4.4/dist/vue.js' }
+        ]
+    }
 }
 
 const evr = renderer.init(evrOptions);
@@ -18,15 +24,20 @@ app.get('/', function (req, res) {
 
     const vueOptions = {
         head: {
-            title: "Test",
-            meta: [
-                { script: 'https://unpkg.com/vue@2.4.4/dist/vue.js' }
-            ]
-        },
-        layout: {
+            title: "Test2",
+            structuredData: {
+                '@context': 'http://schema.org',
+                '@type': 'Organization',
+                'url': 'http://www.your-company-site.com',
+                'contactPoint': [{
+                    '@type': 'ContactPoint',
+                    'telephone': '+1-401-555-1212',
+                    'contactType': 'customer service'
+                }]
+            }
         }
     };
-    res.renderVue("index.vue", data, vueOptions); 
+    res.renderVue("test2.vue", data, vueOptions); 
 })
 
 app.get('/example2', function (req, res) {
