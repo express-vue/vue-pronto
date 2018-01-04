@@ -53,6 +53,26 @@ test.cb('Head Title', t => {
     t.end();
 });
 
+
+test.cb('Structured Data', t => {
+    const head = {
+        structuredData: {
+            "@context": "http://schema.org",
+            "@type": "Organization",
+            "url": "http://www.your-company-site.com",
+            "contactPoint": [{
+                "@type": "ContactPoint",
+                "telephone": "+1-401-555-1212",
+                "contactType": "customer service"
+            }]
+        }
+    }
+    const expected = `<script type="application/ld+json">{"@context":"http://schema.org","@type":"Organization","url":"http://www.your-company-site.com","contactPoint":[{"@type":"ContactPoint","telephone":"+1-401-555-1212","contactType":"customer service"}]}</script>`;
+    const result = Utils.BuildHead(head);
+    t.is(result, expected);
+    t.end();
+});
+
 test.cb('Meta Error', t => {
     const head = {
         meta: [
