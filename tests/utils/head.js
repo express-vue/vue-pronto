@@ -52,3 +52,18 @@ test.cb('Head Title', t => {
     t.is(result, expected);
     t.end();
 });
+
+test.cb('Meta Error', t => {
+    const head = {
+        meta: [
+            { src: '/assets/scripts/hammer.min.js' }
+        ]
+    }
+
+    const error = t.throws(() =>{
+        Utils.BuildHead(head);
+    }, Error);
+    const expected = "WARNING - DEPRECATED: It looks like you're using the old meta object, please migrate to the new one";
+    t.is(error.message, expected);
+    t.end();
+});
