@@ -7,8 +7,8 @@ const evrOptions = {
     rootPath: path.normalize(__dirname),
     head: {
         title: "Test",
-        meta: [
-            { script: 'https://unpkg.com/vue@2.4.4/dist/vue.js' }
+        scripts: [
+            { src: 'https://unpkg.com/vue@2.4.4/dist/vue.js' }
         ]
     }
 }
@@ -25,6 +25,11 @@ app.get('/', function (req, res) {
     const vueOptions = {
         head: {
             title: "Test2",
+            meta: [
+                {property: 'og:title',content: "pageTitle"},
+                {name: 'twitter:title',content: "pageTitle"}, 
+                {name: 'viewport',content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'}
+            ],
             structuredData: {
                 '@context': 'http://schema.org',
                 '@type': 'Organization',
@@ -49,8 +54,8 @@ app.get('/example2', function (req, res) {
     const vueOptions = {
         head: {
             title: "Test",
-            meta: [
-                { script: 'https://unpkg.com/vue@2.4.4/dist/vue.js' }
+            scripts: [
+                { src: 'https://unpkg.com/vue@2.4.4/dist/vue.js' }
             ]
         },
         layout: {
