@@ -47,8 +47,9 @@
     "debug-windows": "npm run build-windows && node --inspect tests/example/index.js",
     "start-windows": "npm run build-windows && node tests/example/index.js",
     "prepare": "nsp check",
-    "pretest": "eslint . --fix",
-    "test": "eslint lib && nyc ava",
+    "pretest": "eslint lib --fix",
+    "lint": "eslint lib",
+    "test": "npm run lint && nyc ava",
     "coverage": "nyc report --reporter=lcov > coverage.lcov && codecov",
     "preversion": "npm test"
   },
