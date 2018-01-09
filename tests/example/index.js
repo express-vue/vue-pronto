@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require("path");
-const renderer = require("./express");
+const ExpressVue = require("./express");
 
 const evrOptions = {
     rootPath: path.normalize(__dirname),
@@ -13,8 +13,8 @@ const evrOptions = {
     }
 }
 
-const evr = renderer.init(evrOptions);
-app.use(evr);
+const ev = ExpressVue.init(evrOptions);
+app.use(ev);
 
 app.get('/', function (req, res) {
     const data = {
