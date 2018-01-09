@@ -1,17 +1,28 @@
+// @ts-check
 "use strict";
-let Renderer = require("../../lib");
+const Pronto = require("../../lib");
 
-
-//This is the Middlewarein express-vue this wont be in the file
+//This is the Middleware in express-vue this wont be in the file
+/**
+ * 
+ * @param {object} options 
+ * @returns {Function}
+ */
 function init(options) {
     //Make new object
-    const evr = new Renderer(options);
+    const renderer = new Pronto(options);
     //Middleware init
     return (req, res, next) => {
         //Res RenderVUE function
+        /**
+         * 
+         * @param {string} componentPath 
+         * @param {object} data 
+         * @param {object} vueOptions 
+         */
         res.renderVue = (componentPath, data = {}, vueOptions = {}) => {
             res.set("Content-Type", "text/html");
-            evr.RenderToStream(componentPath, data, vueOptions)
+            renderer.RenderToStream(componentPath, data, vueOptions)
                 .then(stream => {
                     stream.on("data", chunk => res.write(chunk));
                     stream.on("end", () => res.end());
