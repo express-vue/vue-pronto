@@ -42,7 +42,7 @@ app.get("/", function(req, res) {
             },
         },
     };
-    res.renderVue("test2.vue", data, vueOptions);
+    res.renderVue("views/index.vue", data, vueOptions);
 });
 
 app.get("/example2", function(req, res) {
@@ -61,7 +61,7 @@ app.get("/example2", function(req, res) {
         layout: {
         },
     };
-    res.renderVue("example2/views/index.vue", data, vueOptions);
+    res.renderVue("../example2/views/index.vue", data, vueOptions);
 });
 
 app.listen(3000, function() {
