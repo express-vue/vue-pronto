@@ -18,7 +18,7 @@
 import foo from "../components/component.vue";
 import messageComp from '../components/message-comp.vue';
 import users from '../components/users.vue';
-import exampleMixin from '../mixins/exampleMixin.js';
+import helloMixin from '../mixins/exampleMixin.js';
 export default {
     data: function () {
         return {
@@ -31,7 +31,7 @@ export default {
         messageComp,
         users
     },
-    mixins: [exampleMixin]
+    mixins: [helloMixin]
 }
 </script>
  

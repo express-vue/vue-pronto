@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const ExpressVue = require("../express");
+const ExpressVue = require("./express");
 
 const evrOptions = {
     rootPath: path.normalize(__dirname),
