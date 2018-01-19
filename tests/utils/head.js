@@ -10,6 +10,7 @@ test.cb('General Head', t => {
             { name: 'twitter:title', content: 'Content Title' },
             { property: 'fb:app_id', content: '123456789' },
             { property: 'og:title', content: 'Content Title' },
+            { rel: 'icon', type: 'image/png', href: '/assets/favicons/favicon-32x32.png', sizes: '32x32' }
         ],
         scripts: [
             { src: '/assets/scripts/hammer.min.js' },
@@ -17,11 +18,10 @@ test.cb('General Head', t => {
         ],
         styles: [
             { style: '/assets/rendered/style.css' },
-            { style: '/assets/rendered/style.css', type: 'text/css' },
-            { rel: 'icon', type: 'image/png', href: '/assets/favicons/favicon-32x32.png', sizes: '32x32' }
+            { style: '/assets/rendered/style.css', type: 'text/css' }
         ]
     } 
-    const expected = `<meta name="application-name" content="Name of my application" /><meta name="description" content="A description of the page" id="desc" /><meta name="twitter:title" content="Content Title" /><meta property="fb:app_id" content="123456789" /><meta property="og:title" content="Content Title" /><script src="/assets/scripts/hammer.min.js" ></script><script charset="utf-8" src="/assets/scripts/vue-touch.min.js" ></script><link rel="stylesheet" href="/assets/rendered/style.css" style="/assets/rendered/style.css" type="text/css" /><link rel="stylesheet" href="/assets/rendered/style.css" style="/assets/rendered/style.css" type="text/css" /><link rel="stylesheet" href="undefined" rel="icon" type="image/png" href="/assets/favicons/favicon-32x32.png" sizes="32x32" />`
+    const expected = `<meta name="application-name" content="Name of my application" /><meta name="description" content="A description of the page" id="desc" /><meta name="twitter:title" content="Content Title" /><meta property="fb:app_id" content="123456789" /><meta property="og:title" content="Content Title" /><link rel="icon" type="image/png" href="/assets/favicons/favicon-32x32.png" sizes="32x32" /><script src="/assets/scripts/hammer.min.js" ></script><script charset="utf-8" src="/assets/scripts/vue-touch.min.js" ></script><link rel="stylesheet" href="/assets/rendered/style.css" style="/assets/rendered/style.css" type="text/css" /><link rel="stylesheet" href="/assets/rendered/style.css" style="/assets/rendered/style.css" type="text/css" />`
     const result = Utils.BuildHead(head);
     t.is(result, expected);
     t.end();
