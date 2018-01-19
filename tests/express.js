@@ -1,11 +1,11 @@
 // @ts-check
 "use strict";
-const Pronto = require("../../lib");
+const Pronto = require("../lib");
 
 //This is the Middleware in express-vue this wont be in the file
 /**
- * 
- * @param {object} options 
+ *
+ * @param {object} options
  * @returns {Function}
  */
 function init(options) {
@@ -15,10 +15,10 @@ function init(options) {
     return (req, res, next) => {
         //Res RenderVUE function
         /**
-         * 
-         * @param {string} componentPath 
-         * @param {object} data 
-         * @param {object} vueOptions 
+         *
+         * @param {string} componentPath
+         * @param {object} data
+         * @param {object} vueOptions
          */
         res.renderVue = (componentPath, data = {}, vueOptions = {}) => {
             res.set("Content-Type", "text/html");

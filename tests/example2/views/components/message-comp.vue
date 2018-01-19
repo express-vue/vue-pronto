@@ -5,8 +5,12 @@
 </template>
 
 <script>
+import inner from './inner.vue';
 export default {
-    props: ['message']
+    props: ['message'],
+    components: {
+        inner
+    }
 }
 </script>
 
