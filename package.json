@@ -1,6 +1,6 @@
 {
   "name": "vue-pronto",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Seriously fast vue server renderer",
   "main": "lib/index.js",
   "files": [
