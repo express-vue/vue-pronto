@@ -1,6 +1,6 @@
 {
   "name": "vue-pronto",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Seriously fast vue server renderer",
   "main": "lib/index.js",
   "files": [
@@ -38,7 +38,6 @@
     "codecov": "^3.0.0",
     "express": "^4.16.2",
     "generate-release": "^0.14.0",
-    "nodemon": "^1.14.12",
     "nsp": "^3.1.0",
     "nyc": "^11.4.1",
     "tslint": "^5.9.1",
@@ -47,7 +46,7 @@
   },
   "scripts": {
     "release": "generate-release",
-    "debug": "nodemon --inspect tests/example/index.js",
+    "debug": "DEBUG=true node --inspect tests/example/index.js",
     "start": "node tests/example/index.js",
     "debug-windows": "npm run build-windows && node --inspect tests/example/index.js",
     "start-windows": "npm run build-windows && node tests/example/index.js",
