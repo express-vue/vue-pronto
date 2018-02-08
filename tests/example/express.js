@@ -1,6 +1,6 @@
 // @ts-check
 "use strict";
-const Pronto = require("../lib");
+const Pronto = require("../../lib");
 
 //This is the Middleware in express-vue this wont be in the file
 /**

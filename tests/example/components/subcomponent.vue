@@ -1,5 +1,5 @@
 <template>
-  <h2>Hello from {{subdata}}</h2>
+  <h2 class="subcomponent">Hello from {{subdata}}</h2>
 </template>
  
 <script>
@@ -17,3 +17,9 @@
     }
   }
 </script> 
+
+<style>
+.subcomponent {
+    color: green;
+}
+</style>

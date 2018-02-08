@@ -1,0 +1,19 @@
+{
+  "restartable": "rs",
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules"
+  ],
+  "verbose": true,
+  "execMap": {
+    "js": "node"
+  },
+  "watch": [
+    "lib/",
+    "tests/example/"
+  ],
+  "env": {
+    "DEBUG": "true"
+  },
+  "ext": "js json vue"
+}
