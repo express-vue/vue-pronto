@@ -7,9 +7,6 @@ const evrOptions = {
     rootPath: path.normalize(__dirname),
     head: {
         title: "Test",
-        scripts: [
-            { src: "https://unpkg.com/vue@2.4.4/dist/vue.js" },
-        ],
     },
 };
 
@@ -65,5 +62,6 @@ app.get("/example2", function(req, res) {
 });
 
 app.listen(3000, function() {
-  console.log("Example app listening on port 3000!");
+    // tslint:disable-next-line:no-console
+    console.log("Example app listening on port 3000!");
 });
