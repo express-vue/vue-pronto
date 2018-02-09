@@ -65,31 +65,29 @@ renderToStream returns a string from res.renderVue to the client
 ```js
 {
     rootPath: path.join(__dirname, '/../tests'),
-    viewsPath: 'vueFiles',
-    componentsPath: 'vueFiles/components',
+    vueVersion: "2.3.4",
     layout: {
         start: '<body><div id="app">',
         end: '</div></body>'
     },
-    vue: {
-        head: {
-            meta: [{
-                    property: 'og:title',
-                    content: 'Page Title'
-                },
-                {
-                    name: 'twitter:title',
-                    content: 'Page Title'
-                },
-                {
-                    script: 'https://unpkg.com/vue@2.3.4/dist/vue.js'
-                }, {
-                    name: 'viewport',
-                    content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
-                }
-            ]
-        }
-    },
+    head: {
+        meta: [{
+                property: 'og:title',
+                content: 'Page Title'
+            },
+            {
+                name: 'twitter:title',
+                content: 'Page Title'
+            },
+            {
+                script: 'https://unpkg.com/vue@2.3.4/dist/vue.js'
+            }, 
+            {
+                name: 'viewport',
+                content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
+            }
+        ]
+    }
     data: {
         thing: true
     }

@@ -13,7 +13,8 @@
     "tests/example/"
   ],
   "env": {
-    "DEBUG": "true"
+    "DEBUG": true,
+    "VUE_DEV": true
   },
   "ext": "js json vue"
 }
