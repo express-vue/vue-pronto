@@ -71,7 +71,8 @@ renderToStream returns a string from res.renderVue to the client
         end: '</div></body>'
     },
     head: {
-        meta: [{
+        metas: [
+            {
                 property: 'og:title',
                 content: 'Page Title'
             },
@@ -80,12 +81,15 @@ renderToStream returns a string from res.renderVue to the client
                 content: 'Page Title'
             },
             {
-                script: 'https://unpkg.com/vue@2.3.4/dist/vue.js'
-            }, 
-            {
                 name: 'viewport',
                 content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
             }
+        ],
+        scripts: [
+            {src: 'https://unpkg.com/vue@2.3.4/dist/vue.js'}
+        ], 
+        styles: [
+
         ]
     }
     data: {
