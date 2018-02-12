@@ -1,14 +1,16 @@
 <template>
   <div>
     <h2>Hello from {{hellodata}}</h2>
+    <button type="button" name="button" v-on:click="hello(hellodata)">{{hellodata}}</button>
   <subcomponent subdata="subcomponent"></subcomponent>
   </div>
   
 </template>
  
 <script>
-  const subcomponent = require('./subcomponent.vue');
-  module.exports = {
+  import subcomponent from './subcomponent.vue';
+  import exampleMixin2 from "../mixins/exampleMixin"
+  export default {
     props: {
       hellodata: {
         default: "default",
@@ -20,6 +22,7 @@
       return {
       }
     },
+    mixins: [exampleMixin2],
     components: {
       subcomponent
     }
