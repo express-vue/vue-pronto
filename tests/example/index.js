@@ -5,6 +5,9 @@ const ExpressVue = require("./express");
 
 const evrOptions = {
     rootPath: path.normalize(__dirname),
+    data: {
+        foo: true
+    },
     head: {
         title: "Test",
     },
