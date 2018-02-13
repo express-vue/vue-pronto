@@ -11,6 +11,7 @@
     <button type="button" name="button" v-on:click="hello(messageOuter)">{{messageOuter}}</button>
     <message-comp :message="messageOuter"></message-comp>
     <users :users="users"></users>
+    <simple></simple>
   </div>
 </template>
  
@@ -19,6 +20,7 @@ import foo from "../../components/component.vue";
 import messageComp from '../../components/message-comp.vue';
 import users from '../../components/users.vue';
 import helloMixin from '../../mixins/exampleMixin.js';
+import simple from 'simple-vue-component-test/simple.vue';
 export default {
     data: function () {
         return {
@@ -29,7 +31,8 @@ export default {
     components: {
         foo,
         messageComp,
-        users
+        users,
+        simple
     },
     mixins: [helloMixin]
 }
