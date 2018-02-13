@@ -4,7 +4,10 @@ const path = require("path");
 const ExpressVue = require("./express");
 
 const evrOptions = {
-    rootPath: path.normalize(__dirname),
+    rootPath: path.normalize(path.join(__dirname, "views")),
+    data: {
+        foo: true,
+    },
     head: {
         title: "Test",
     },
@@ -39,7 +42,7 @@ app.get("/", function(req, res) {
             },
         },
     };
-    res.renderVue("views/index.vue", data, vueOptions);
+    res.renderVue("index/index.vue", data, vueOptions);
 });
 
 app.get("/example2", function(req, res) {
