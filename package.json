@@ -15,7 +15,7 @@
     "insert-css": "^2.0.0",
     "lru-cache": "^4.1.1",
     "require-from-string": "^2.0.1",
-    "uglify-js": "^3.3.7",
+    "uglify-js": "^3.3.11",
     "vue": "^2.5.13",
     "vue-server-renderer": "^2.5.13",
     "vue-template-compiler": "^2.5.13",
