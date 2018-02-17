@@ -9,7 +9,7 @@ before_install:
   - npm install -g greenkeeper-lockfile@1
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
-after_success:  npm run coverage
+after_success: npm run coverage
 deploy:
   - provider: npm
     skip_cleanup: true
@@ -19,7 +19,7 @@ deploy:
     on:
       branch: master
       tags: true
-      repo: express-vue/express-vue
+      repo: express-vue/vue-pronto
   addons:
     code_climate:
       repo_token: 308db9eefcafd79785ed545433e7930a43b926b5bdea95014274a4b7ffe4b06b
