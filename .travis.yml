@@ -10,11 +10,10 @@ before_install:
 before_script: greenkeeper-lockfile-update
 jobs:
   include:
-    - stage: greenkeeper
       script: greenkeeper-lockfile-upload
-    - stage: coverage
       script: npm run coverage
     - stage: npm release
+      if: branch = master
       node_js: "8"
       deploy:
         skip_cleanup: true
