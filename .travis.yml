@@ -1,15 +1,15 @@
 language: node_js
 node_js:
-  - 8
-  - 7
-  - 6
+  - v8
+  - v7
+  - v6
 before_install:
-  - npm install -g npm
-  - npm install -g codecov
-  - npm install -g greenkeeper-lockfile@1
+    - npm install -g npm
+    - npm install -g codecov
+    - npm install -g greenkeeper-lockfile@1
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
-after_success: npm run coverage
+after_success:  npm run coverage
 deploy:
   - provider: npm
     skip_cleanup: true
@@ -20,7 +20,6 @@ deploy:
       branch: master
       tags: true
       repo: express-vue/vue-pronto
-  addons:
+addons:
     code_climate:
-      repo_token: 308db9eefcafd79785ed545433e7930a43b926b5bdea95014274a4b7ffe4b06b
-  
+        repo_token: fdc3db1ac144125b5f5a11900fdaa719a4b882b55b4d5ea307a21164e01cce8a
