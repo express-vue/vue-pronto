@@ -66,9 +66,11 @@ renderToStream returns a string from res.renderVue to the client
 {
     rootPath: path.join(__dirname, '/../tests'),
     vueVersion: "2.3.4",
-    layout: {
-        start: '<body><div id="app">',
-        end: '</div></body>'
+    template: {
+        body: {
+            start: '<body><div id="app">',
+            end: '</div></body>'
+        }
     },
     head: {
         metas: [
