@@ -38,3 +38,25 @@ test.cb("Layout With Stuff", t => {
     t.deepEqual(layout, expected);
     t.end();
 });
+
+test.cb("Layout With Javascript error", t => {
+    const context = {
+        head: "",
+        css: "",
+        script: "const foo = true",
+        template: {
+            html: {
+                start: '<!DOCTYPE html lang="en"><html>',
+            },
+            body: {
+                start: '<body id="foo">',
+            },
+        },
+    };
+    const layout = t.throws(() => {
+        Utils.BuildLayout(context);
+    });
+
+    t.is(layout.message, "Unexpected token: keyword (const)");
+    t.end();
+});
