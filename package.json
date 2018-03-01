@@ -9,11 +9,12 @@
   ],
   "dependencies": {
     "@types/deepmerge": "^1.3.3",
+    "axios": "^0.18.0",
     "browserify": "^16.1.0",
     "clean-css": "^4.1.9",
     "deepmerge": "^2.0.1",
     "find-node-modules": "^1.0.4",
-    "js-to-string": "^0.4.2",
+    "js-to-string": "^0.4.3",
     "lru-cache": "^4.1.1",
     "require-from-string": "^2.0.1",
     "uglify-js": "^3.3.11",
