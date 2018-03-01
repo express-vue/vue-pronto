@@ -2,38 +2,91 @@
 "use strict";
 const Pronto = require("../../lib");
 
-//This is the Middleware in express-vue this wont be in the file
 /**
- *
- * @param {object} options
+ * @typedef VueOptionsType
+ * @prop {String} title
+ * @prop {Object} head
+ * @prop {Object[]} head.scripts
+ * @prop {Object[]} head.metas
+ * @prop {Object[]} head.styles
+ * @prop {Object} template
+ */
+
+/**
+ * @typedef ConfigObjectType
+ * @prop {{max: number, maxAge: number}} cacheOptions - cacheoptions for LRU cache
+ * @prop {String} rootPath
+ * @prop {String} vueVersion
+ * @prop {VueOptionsType} head
+ */
+
+/**
+ * Middleware Init function for ExpressVue
+ * @param {ConfigObjectType} options
  * @returns {Function}
  */
 function init(options) {
     //Make new object
-    const renderer = new Pronto(options);
-    //Middleware init
-    return (req, res, next) => {
-        //Res RenderVUE function
+    const Renderer = new Pronto(options);
+
+    /**
+     * @param {Object} req
+     * @param {Object} req.vueOptions
+     * @param {Object} res
+     * @param {Function} res.renderVue
+     * @param {Function} res.set
+     * @param {Function} res.write
+     * @param {Function} res.end
+     * @param {Function} res.send
+     * @param {Function} next
+     */
+    function expressVueMiddleware(req, res, next) {
         /**
-         *
-         * @param {string} componentPath
-         * @param {object} data
-         * @param {object} vueOptions
+         * @param {NodeJS.ReadableStream} stream
          */
-        res.renderVue = (componentPath, data = {}, vueOptions = {}) => {
-            res.set("Content-Type", "text/html");
-            renderer.RenderToStream(componentPath, data, vueOptions)
-                .then(stream => {
-                    stream.on("data", chunk => res.write(chunk));
-                    stream.on("end", () => res.end());
-                })
-                .catch(error => {
-                    console.error(error);
-                    res.send(error);
-                });
+        function StreamToClient(stream) {
+            stream.on("data", /** @param {String} chunk */function(chunk) {
+                return res.write(chunk);
+            });
+            stream.on("end", function() {
+                return res.end();
+            });
+        }
+
+        /**
+         * @param {Error} error
+         */
+        function ErrorToClient(error) {
+            console.error(error);
+            res.send(error);
+        }
+
+        req.vueOptions = {
+            title: "",
+            head: {
+                scripts: [],
+                styles: [],
+                metas: [],
+            },
         };
+        /**
+         * Res RenderVUE function
+         * @param {String} componentPath
+         * @param {Object} [data={}]
+         * @param {Object} [vueOptions={}]
+         */
+        res.renderVue = function(componentPath, data = {}, vueOptions = {}) {
+            res.set("Content-Type", "text/html");
+            Renderer.RenderToStream(componentPath, data, vueOptions)
+                .then(StreamToClient)
+                .catch(ErrorToClient);
+        };
+
         return next();
-    };
+    }
+
+    //Middleware init
+    return expressVueMiddleware;
 }
 
 module.exports.init = init;
