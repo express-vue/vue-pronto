@@ -6,7 +6,9 @@
     <div v-html="fakehtml"></div>
     <h1>{{title}}</h1>
     <p>Welcome to the {{title}} demo. Click a link:</p>
-    
+    <p>import fooTransitionExpand from '@foo/styles-animation/src/components/foo-transition-expand.vue';</p>
+    <p>const test = require("foo.vue");</p>
+    <p>const bar = require("bar.vue");</p>
     <input v-model="messageOuter" placeholder="edit me">
     <button type="button" name="button" v-on:click="hello(messageOuter)">{{messageOuter}}</button>
     <message-comp :message="messageOuter"></message-comp>
