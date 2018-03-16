@@ -5,8 +5,7 @@ const Utils = require("../../lib/utils");
 test("VueVersion no version", t => {
     const vueVersion = Utils.VueVersion();
 
-    let vuePackageVersion = require("../../package.json").dependencies.vue;
-    if (vuePackageVersion.includes("^")) { vuePackageVersion = vuePackageVersion.replace("^", ""); }
+    let vuePackageVersion = "latest";
     const expected = `https://cdn.jsdelivr.net/npm/vue@${vuePackageVersion}/dist/vue.min.js`;
 
     t.is(vueVersion.script.src, expected);
