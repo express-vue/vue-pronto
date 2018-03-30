@@ -32,6 +32,9 @@ app.get("/", function(req, res) {
             };
 
             const vueOptions = {
+                plugins: [
+                    { name: "vue-easy-toast", options: {} },
+                ],
                 head: {
                     title: "Test2",
                     metas: [

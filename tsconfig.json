@@ -57,10 +57,10 @@
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
   },
   "include": [
-    "lib"
+    "lib",
+    "node_modules/js-to-string/**/*"
   ],
   "exclude": [
-    "tests",
-    "node_modules"
+    "tests"
   ]
 }
