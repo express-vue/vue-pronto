@@ -11,6 +11,7 @@
     "@types/deepmerge": "^2.1.0",
     "@types/object-hash": "^1.2.0",
     "browserify": "^16.1.1",
+    "change-case": "^3.0.2",
     "clean-css": "^4.1.11",
     "deepmerge": "^2.1.0",
     "find": "^0.2.9",

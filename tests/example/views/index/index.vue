@@ -36,7 +36,12 @@ export default {
         users,
         simple
     },
-    mixins: [helloMixin]
+    mixins: [helloMixin],
+    methods: {
+        toast: function() {
+            Vue.toast("fdfdf");
+        }
+    }
 }
 </script>
  
