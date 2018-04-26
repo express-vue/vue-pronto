@@ -1,6 +1,6 @@
 // @ts-check
 "use strict";
-const Pronto = require("../../lib");
+const {ProntoVueify, ProntoWebpack} = require("../../lib");
 
 /**
  * @typedef VueOptionsType
@@ -18,6 +18,7 @@ const Pronto = require("../../lib");
  * @prop {String} rootPath
  * @prop {String} vueVersion
  * @prop {VueOptionsType} head
+ * @prop {Object | boolean} webpack
  */
 
 /**
@@ -27,7 +28,12 @@ const Pronto = require("../../lib");
  */
 function init(options) {
     //Make new object
-    const Renderer = new Pronto(options);
+    let Renderer = {};
+    if (options.webpack) {
+        Renderer = new ProntoWebpack(options);
+    } else {
+        Renderer = new ProntoVueify(options);
+    }
 
     /**
      * @param {Object} req
