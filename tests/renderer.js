@@ -1,7 +1,7 @@
 //@ts-check
 const test = require("ava");
 const path = require("path");
-const Pronto = require("../lib");
+const Pronto = require("../lib").ProntoVueify;
 
 const vueFile = path.join("index/index.vue");
 const rootPath = path.normalize(path.join(__dirname, "../tests/example/views"));

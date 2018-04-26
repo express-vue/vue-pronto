@@ -64,7 +64,7 @@
     "prepare": "nsp check",
     "lint": "tslint --project tsconfig.json",
     "pretest": "npm run lint",
-    "test": "TEST=true nyc ava --tap | tap-nyan",
+    "test": "TEST=true nyc ava",
     "coverage": "nyc report --reporter=lcov > coverage.lcov && codecov",
     "preversion": "npm test"
   },
