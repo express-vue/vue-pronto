@@ -103,7 +103,7 @@ function use(expressApp, options) {
     expressApp.get(
         "/expressvue/bundles/:bundlename",
         function(req, res, next) {
-            renderer.getBundleFile(req.params.bundlename)
+            renderer.getBundleFile(req.path)
             .then(bundle => {
                 res.send(bundle);
             })
