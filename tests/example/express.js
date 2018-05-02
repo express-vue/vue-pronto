@@ -26,11 +26,11 @@ const {ProntoVueify, ProntoWebpack} = require("../../lib");
  * @param {ConfigObjectType} options
  * @returns {Function}
  */
-function init(options) {
+function init(options, renderer) {
     //Make new object
     let Renderer = {};
-    if (options.webpack) {
-        Renderer = new ProntoWebpack(options);
+    if (renderer) {
+        Renderer = renderer;
     } else {
         Renderer = new ProntoVueify(options);
     }
@@ -95,9 +95,26 @@ function init(options) {
     return expressVueMiddleware;
 }
 
-function use(expressApp) {
+function use(expressApp, options) {
+    const renderer = new ProntoWebpack(options);
+    const expressVue = init(options, renderer);
+    expressApp.use(expressVue);
 
-    expressApp.use(init())
+    expressApp.get(
+        "/expressvue/bundles/:bundlename",
+        function(req, res, next) {
+            renderer.getBundleFile(req.params.bundlename)
+            .then(bundle => {
+                res.send(bundle);
+            })
+            .catch(error => {
+                res.status(404);
+                res.send("file not found");
+            });
+
+        },
+    );
 }
 
 module.exports.init = init;
+module.exports.use = use;

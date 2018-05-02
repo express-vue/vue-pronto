@@ -15,8 +15,9 @@ const evrOptions = {
     },
 };
 
-const ev = ExpressVue.init(evrOptions);
-app.use(ev);
+// const ev = ExpressVue.init(evrOptions);
+ExpressVue.use(app, evrOptions)
+// app.use(ev);
 
 app.get("/", function(req, res) {
     axios.get("http://loremricksum.com/api/?paragraphs=4&quotes=1")
