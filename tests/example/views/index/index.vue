@@ -27,7 +27,11 @@ export default {
     data: function () {
         return {
             msg: 'Hello world!',
-            messageOuter: 'Say Foo'
+            messageOuter: 'Say Foo',
+            users: [],
+            title: "",
+            fakehtml: "",
+            bar: false
         }
     },
     components: {
