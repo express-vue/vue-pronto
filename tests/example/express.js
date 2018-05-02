@@ -95,4 +95,9 @@ function init(options) {
     return expressVueMiddleware;
 }
 
+function use(expressApp) {
+
+    expressApp.use(init())
+}
+
 module.exports.init = init;

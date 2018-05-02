@@ -1,6 +1,7 @@
 <template>
   <div>
     <p>Welcome to the demo. Click a link:</p>
+    <p>{{msg}}</p>
   </div>
 </template>
  
