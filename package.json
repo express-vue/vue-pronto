@@ -40,7 +40,7 @@
     "babel-preset-env": "^1.6.1",
     "codecov": "^3.0.0",
     "express": "^4.16.3",
-    "generate-release": "^0.14.0",
+    "generate-release": "^1.0.1",
     "nodemon": "^1.17.2",
     "nsp": "^3.2.1",
     "nyc": "^11.6.0",
