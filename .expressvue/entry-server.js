@@ -1,5 +1,7 @@
-import { createApp } from './app'
+import { createApp } from "./app"
             export default context => {
-                const { app } = createApp()
-                return app
-            }
+                return new Promise((resolve, reject) => {
+                    const { app } = createApp(context.state);
+                    resolve(app);
+                });
+            };
