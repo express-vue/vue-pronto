@@ -55,7 +55,6 @@
     "start": "node tests/example/index.js",
     "debug-windows": "npm run build-windows && node --inspect tests/example/index.js",
     "start-windows": "npm run build-windows && node tests/example/index.js",
-    "prepare": "nsp check",
     "lint": "tslint --project tsconfig.json",
     "pretest": "npm run lint",
     "test": "TEST=true nyc ava --tap | tap-nyan",
