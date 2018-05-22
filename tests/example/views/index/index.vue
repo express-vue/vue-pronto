@@ -2,13 +2,11 @@
   <div>
     <h1 class="red">{{msg}}</h1>
     <foo hellodata="component"></foo>
-    <p>{{bar}}</p>
-    <div v-html="fakehtml"></div>
+    <p>{{$root.bar}}</p>
+    <div v-html="$root.fakehtml"></div>
     <h1>{{title}}</h1>
     <p>Welcome to the {{title}} demo. Click a link:</p>
-    <p>import fooTransitionExpand from '@foo/styles-animation/src/components/foo-transition-expand.vue';</p>
-    <p>const test = require("foo.vue");</p>
-    <p>const bar = require("bar.vue");</p>
+    <p>{{$root.sentence}}</p>
     <input v-model="messageOuter" placeholder="edit me">
     <button type="button" name="button" v-on:click="hello(messageOuter)">{{messageOuter}}</button>
     <message-comp :message="messageOuter"></message-comp>
@@ -18,7 +16,7 @@
 </template>
  
 <script>
-
+import axios from "axios";
 import foo from "../../components/component.vue";
 import messageComp from '../../components/message-comp.vue';
 import users from '../../components/users.vue';
@@ -26,13 +24,6 @@ import helloMixin from '../../mixins/exampleMixin.js';
 import simple from 'simple-vue-component-test/simple.vue';
 export default {
     props: {
-        bar: {
-            type: Boolean
-        },
-        fakehtml: {
-            type: String,
-            default: ""
-        },
         title: {
             type: String,
             default: ""

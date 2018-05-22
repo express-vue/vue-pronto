@@ -28,9 +28,11 @@
     "uglify-js": "^3.3.16",
     "vue": "^2.5.16",
     "vue-loader": "^15.0.4",
+    "vue-router": "^3.0.1",
     "vue-server-renderer": "^2.5.16",
     "vue-template-compiler": "^2.5.16",
     "vueify": "^9.4.1",
+    "vuex": "^3.0.1",
     "webpack": "^4.6.0",
     "xss": "^0.3.7"
   },
