@@ -45,7 +45,6 @@
     "nsp": "^3.2.1",
     "nyc": "^11.8.0",
     "simple-vue-component-test": "^1.0.0",
-    "tap-nyan": "^1.1.0",
     "tslint": "^5.10.0",
     "typescript": "^2.8.3"
   },
@@ -57,7 +56,7 @@
     "start-windows": "npm run build-windows && node tests/example/index.js",
     "lint": "tslint --project tsconfig.json",
     "pretest": "npm run lint",
-    "test": "TEST=true nyc ava --tap | tap-nyan",
+    "test": "TEST=true nyc ava",
     "coverage": "nyc report --reporter=lcov > coverage.lcov && codecov",
     "preversion": "npm test"
   },
