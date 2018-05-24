@@ -24,7 +24,7 @@
     "vue-server-renderer": "^2.5.16",
     "vue-template-compiler": "^2.5.16",
     "vueify": "^9.4.1",
-    "xss": "^0.3.8"
+    "xss": "^1.0.0"
   },
   "devDependencies": {
     "@types/chalk": "^2.2.0",
