@@ -43,7 +43,7 @@
     "generate-release": "^1.1.1",
     "nodemon": "^1.17.5",
     "nsp": "^3.2.1",
-    "nyc": "^11.8.0",
+    "nyc": "^12.0.1",
     "simple-vue-component-test": "^1.0.0",
     "tslint": "^5.10.0",
     "typescript": "^2.8.3"
