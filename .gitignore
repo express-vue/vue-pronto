@@ -28,3 +28,7 @@ build/Release
 node_modules
 \.nyc_output/
 .expressvue
+*.clinic-doctor
+*.clinic-flame
+*.clinic-doctor.html
+*.clinic-flame.html
