@@ -25,7 +25,7 @@ test("String returns with zero config", t => {
     return renderer
         .RenderToString("tests/example/views/index/index.vue", data, vueOptions)
         .then(rendered => {
-            t.is(rendered.replace(/(?:[\[|\s|\"])data-v-(.*)(?:[\]|\>|\"])/gm, function(match, p1) { return 'data-v-' + p1; }), expected.replace(/(?:[\[|\s|\"])data-v-(.*)(?:[\]|\>|\"])/gm, function(match, p1) { return 'data-v-' + p1; }));
+            t.is(rendered.replace(/([\[|\s|\"])data-v-(.*)([\]|\>|\"])/gm, function(match, p1, p2, p3) { return p1 + 'data-v-' + p2 + p3; }), expected.replace(/([\[|\s|\"])data-v-(.*)([\]|\>|\"])/gm, function(match, p1, p2, p3) { return p1 + 'data-v-' + p2 + p3; }));
         })
         .catch(error => {
             t.fail(error);
@@ -58,7 +58,7 @@ test("String returns with some config", t => {
     return renderer
         .RenderToString("tests/example/views/index/index.vue", data, vueOptions)
         .then(rendered => {
-            t.is(rendered.replace(/(?:[\[|\s|\"])data-v-(.*)(?:[\]|\>|\"])/gm, function(match, p1) { return 'data-v-' + p1; }), expected.replace(/(?:[\[|\s|\"])data-v-(.*)(?:[\]|\>|\"])/gm, function(match, p1) { return 'data-v-' + p1; }));
+            t.is(rendered.replace(/([\[|\s|\"])data-v-(.*)([\]|\>|\"])/gm, function(match, p1, p2, p3) { return p1 + 'data-v-' + p2 + p3; }), expected.replace(/([\[|\s|\"])data-v-(.*)([\]|\>|\"])/gm, function(match, p1, p2, p3) { return p1 + 'data-v-' + p2 + p3; }));
         })
         .catch(error => {
             t.fail(error);
@@ -84,7 +84,7 @@ test("String returns with full object", t => {
     return renderer
         .RenderToString(vueFile, data, vueOptions)
         .then(rendered => {
-            t.is(rendered.replace(/(?:[\[|\s|\"])data-v-(.*)(?:[\]|\>|\"])/gm, function(match, p1) { return 'data-v-' + p1; }), expected.replace(/(?:[\[|\s|\"])data-v-(.*)(?:[\]|\>|\"])/gm, function(match, p1) { return 'data-v-' + p1; }));
+            t.is(rendered.replace(/([\[|\s|\"])data-v-(.*)([\]|\>|\"])/gm, function(match, p1, p2, p3) { return p1 + 'data-v-' + p2 + p3; }), expected.replace(/([\[|\s|\"])data-v-(.*)([\]|\>|\"])/gm, function(match, p1, p2, p3) { return p1 + 'data-v-' + p2 + p3; }));
         })
         .catch(error => {
             t.fail(error);
@@ -99,7 +99,7 @@ test("String returns with no object", t => {
     return renderer
         .RenderToString(vueFile, {}, {})
         .then(rendered => {
-            t.is(rendered.replace(/(?:[\[|\s|\"])data-v-(.*)(?:[\]|\>|\"])/gm, function(match, p1) { return 'data-v-' + p1; }), expected.replace(/(?:[\[|\s|\"])data-v-(.*)(?:[\]|\>|\"])/gm, function(match, p1) { return 'data-v-' + p1; }));
+            t.is(rendered.replace(/([\[|\s|\"])data-v-(.*)([\]|\>|\"])/gm, function(match, p1, p2, p3) { return p1 + 'data-v-' + p2 + p3; }), expected.replace(/([\[|\s|\"])data-v-(.*)([\]|\>|\"])/gm, function(match, p1, p2, p3) { return p1 + 'data-v-' + p2 + p3; }));
         })
         .catch(error => {
             t.fail(error);
@@ -129,7 +129,7 @@ test.cb("Stream returns with full object", t => {
             let rendered = "";
             stream.on("data", chunk => (rendered += chunk));
             stream.on("end", () => {
-                t.is(rendered.replace(/(?:[\[|\s|\"])data-v-(.*)(?:[\]|\>|\"])/gm, function(match, p1) { return 'data-v-' + p1; }), expected.replace(/(?:[\[|\s|\"])data-v-(.*)(?:[\]|\>|\"])/gm, function(match, p1) { return 'data-v-' + p1; }));
+                t.is(rendered.replace(/([\[|\s|\"])data-v-(.*)([\]|\>|\"])/gm, function(match, p1, p2, p3) { return p1 + 'data-v-' + p2 + p3; }), expected.replace(/([\[|\s|\"])data-v-(.*)([\]|\>|\"])/gm, function(match, p1, p2, p3) { return p1 + 'data-v-' + p2 + p3; }));
                 t.end();
             });
         })
@@ -150,7 +150,7 @@ test.cb("Stream returns with no object", t => {
             let rendered = "";
             stream.on("data", chunk => (rendered += chunk));
             stream.on("end", () => {
-                t.is(rendered.replace(/(?:[\[|\s|\"])data-v-(.*)(?:[\]|\>|\"])/gm, function(match, p1) { return 'data-v-' + p1; }), expected.replace(/(?:[\[|\s|\"])data-v-(.*)(?:[\]|\>|\"])/gm, function(match, p1) { return 'data-v-' + p1; }));
+                t.is(rendered.replace(/([\[|\s|\"])data-v-(.*)([\]|\>|\"])/gm, function(match, p1, p2, p3) { return p1 + 'data-v-' + p2 + p3; }), expected.replace(/([\[|\s|\"])data-v-(.*)([\]|\>|\"])/gm, function(match, p1, p2, p3) { return p1 + 'data-v-' + p2 + p3; }));
                 t.end();
             });
         })
