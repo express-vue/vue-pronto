@@ -18,8 +18,11 @@
   }
 </script> 
 
-<style>
+<style scoped>
 .subcomponent {
     color: green;
+}
+h2 {
+  font-size: 40px;
 }
 </style>
