@@ -8,13 +8,11 @@
         ".babelrc"
     ],
     "dependencies": {
-        "@types/deep-assign": "^0.1.1",
         "@types/deepmerge": "^2.1.0",
         "@types/object-hash": "^1.2.0",
         "autoprefixer": "^9.1.5",
         "browserify": "^16.2.2",
         "clean-css": "^4.2.1",
-        "deep-assign": "^2.0.0",
         "deepmerge": "^2.1.1",
         "find": "^0.2.9",
         "find-node-modules": "^1.0.4",
