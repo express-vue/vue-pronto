@@ -28,7 +28,7 @@
         "xss": "^0.3.8"
     },
     "devDependencies": {
-        "@types/autoprefixer": "^6.7.3",
+        "@types/autoprefixer": "^9.1.1",
         "@types/chalk": "^2.2.0",
         "@types/clean-css": "^3.4.30",
         "@types/lru-cache": "^4.1.1",
