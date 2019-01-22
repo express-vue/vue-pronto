@@ -13,11 +13,11 @@
         "browserify": "^16.2.3",
         "clean-css": "^4.2.1",
         "css-loader": "^2.1.0",
-        "deepmerge": "^2.1.1",
+        "deepmerge": "^3.1.0",
         "find": "^0.2.9",
         "find-node-modules": "^1.0.4",
         "js-to-string": "^0.4.5",
-        "lru-cache": "^4.1.3",
+        "lru-cache": "^5.1.1",
         "object-hash": "^1.3.0",
         "require-from-string": "^2.0.2",
         "uglify-js": "^3.4.8",
@@ -27,18 +27,18 @@
         "vue-template-compiler": "^2.5.22",
         "vueify": "^9.4.1",
         "webpack": "^4.29.0",
-        "xss": "^0.3.8"
+        "xss": "^1.0.3"
     },
     "devDependencies": {
         "@babel/core": "^7.2.2",
         "@babel/preset-env": "^7.3.1",
-        "@types/object-hash": "^1.2.0",
-        "@types/autoprefixer": "^6.7.3",
+        "@types/autoprefixer": "^9.1.1",
         "@types/clean-css": "^3.4.30",
         "@types/lru-cache": "^4.1.1",
         "@types/memory-fs": "^0.3.2",
         "@types/mkdirp": "^0.5.2",
         "@types/node": "^10.9.2",
+        "@types/object-hash": "^1.2.0",
         "@types/require-from-string": "^1.2.0",
         "@types/uglify-js": "^3.0.3",
         "@types/webpack": "^4.4.23",
@@ -53,7 +53,7 @@
         "simple-vue-component-test": "^1.0.0",
         "sleep-ms": "^2.0.1",
         "tslint": "^5.11.0",
-        "typescript": "^2.9.2"
+        "typescript": "^3.2.4"
     },
     "scripts": {
         "release": "npm test && generate-release",
