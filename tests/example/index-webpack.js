@@ -15,8 +15,6 @@ const evrOptions = {
     },
 };
 
-// const ev = ExpressVue.init(evrOptions);
-// app.use(ev);
 ExpressVue.use(app, evrOptions);
 
 app.get("/", function(req, res) {
@@ -50,7 +48,7 @@ app.get("/", function(req, res) {
             },
         },
     };
-    res.renderVue("index/index.vue", data, vueOptions);
+    res.renderVue("index/index-webpack.vue", data, vueOptions);
 });
 
 app.get("/example2", function(req, res) {
@@ -69,7 +67,7 @@ app.get("/example2", function(req, res) {
         layout: {
         },
     };
-    res.renderVue("../example2/views/index.vue", data, vueOptions);
+    res.renderVue("../example2/views/index-webpack.vue", data, vueOptions);
 });
 
 app.listen(3000, function() {

@@ -32,6 +32,7 @@
     "devDependencies": {
         "@babel/core": "^7.2.2",
         "@babel/preset-env": "^7.3.1",
+        "@babel/preset-es2015": "^7.0.0-beta.53",
         "@types/autoprefixer": "^9.1.1",
         "@types/clean-css": "^3.4.30",
         "@types/lru-cache": "^4.1.1",
@@ -42,8 +43,10 @@
         "@types/require-from-string": "^1.2.0",
         "@types/uglify-js": "^3.0.3",
         "@types/webpack": "^4.4.23",
-        "ava": "^0.25.0",
+        "ava": "^1.1.0",
         "axios": "^0.18.0",
+        "babel-core": "^6.26.3",
+        "babel-preset-env": "^1.7.0",
         "codecov": "^3.0.4",
         "express": "^4.16.3",
         "flame": "^0.1.20",
@@ -57,10 +60,14 @@
     },
     "scripts": {
         "release": "npm test && generate-release",
-        "debug": "nodemon --inspect tests/example/index.js",
-        "start": "node tests/example/index.js",
-        "debug-windows": "npm run build-windows && node --inspect tests/example/index.js",
-        "start-windows": "npm run build-windows && node tests/example/index.js",
+        "debug": "nodemon --inspect tests/example/index-webpack.js",
+        "start": "node tests/example/index-webpack.js",
+        "debug-windows": "npm run build-windows && node --inspect tests/example/index-webpack.js",
+        "start-windows": "npm run build-windows && node tests/example/index-webpack.js",
+        "debug-vueify": "nodemon --inspect tests/example/index-vueify.js",
+        "start-vueify": "node tests/example/index-vueify.js",
+        "debug-vueify-windows": "npm run build-windows && node --inspect tests/example/index-vueify.js",
+        "start-vueify-windows": "npm run build-windows && node tests/example/index-vueify.js",
         "lint": "tslint --project tsconfig.json",
         "pretest": "npm run lint",
         "test": "TEST=true nyc ava",
@@ -72,16 +79,18 @@
             "tests/**/*.js",
             "!tests/example/**/*.js"
         ],
-        "source": [
+        "sources": [
             "lib/**/*.js"
         ],
         "concurrency": 5,
         "failFast": false,
         "powerAssert": false,
-        "require": [
-            "babel-register"
-        ],
-        "babel": "inherit"
+        "babel": {
+            "testOptions": {
+                "babelrc": false,
+                "configFile": false
+            }
+        }
     },
     "nyc": {
         "include": [

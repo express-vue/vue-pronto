@@ -4,13 +4,14 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
             "type": "node",
             "request": "attach",
             "name": "Attach",
             "restart": true,
             "protocol": "inspector",
-            "port": 9230
+            "port": 9229
         }
     ]
 }
