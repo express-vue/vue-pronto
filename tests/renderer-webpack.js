@@ -123,6 +123,7 @@ test.cb("Stream returns with full object", t => {
     const expected = `<!DOCTYPE html><html><head><script>window.__INITIAL_STATE__ = {}</script></head><body><div id="app"><div data-server-rendered="true"><h1 class="red">Hello world!</h1> <div><h2>Hello from component</h2> <button type="button" name="button">component</button> <h2 class="subcomponent" data-v-2fafd565>Hello from subcomponent</h2></div> <p></p> <div></div> <h1></h1> <p>Welcome to the  demo. Click a link:</p> <p></p> <input placeholder="edit me" value="Say Foo"> <button type="button" name="button">Say Foo</button> <div><h1>Say Foo</h1></div> <div><ul><li><a href="/users/default" class="test">default</a></li></ul></div> <div><p class="simple">Hello From Component in node_modules</p></div></div></div><script src="/expressvue/bundles/index-webpack.vue.client.js"></script></body></html>`;
     // @ts-ignore
     renderer
+        // @ts-ignore
         .RenderToStream(vueFile, {}, vueOptions)
         .then(stream => {
             let rendered = "";
@@ -144,6 +145,7 @@ test.cb("Stream returns with no object", t => {
     const expected = `<!DOCTYPE html><html><head><script>window.__INITIAL_STATE__ = {}</script></head><body><div id="app"><div data-server-rendered="true"><h1 class="red">Hello world!</h1> <div><h2>Hello from component</h2> <button type="button" name="button">component</button> <h2 class="subcomponent" data-v-2fafd565>Hello from subcomponent</h2></div> <p></p> <div></div> <h1></h1> <p>Welcome to the  demo. Click a link:</p> <p></p> <input placeholder="edit me" value="Say Foo"> <button type="button" name="button">Say Foo</button> <div><h1>Say Foo</h1></div> <div><ul><li><a href="/users/default" class="test">default</a></li></ul></div> <div><p class="simple">Hello From Component in node_modules</p></div></div></div><script src="/expressvue/bundles/index-webpack.vue.client.js"></script></body></html>`;
     // @ts-ignore
     renderer
+        // @ts-ignore
         .RenderToStream(vueFile, {}, {})
         .then(stream => {
             let rendered = "";

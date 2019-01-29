@@ -15,6 +15,17 @@ const babelConfig = {
         }],
     ],
 };
+
+function fixForNode8andUnder(expected) {
+    if (Number(process.version.match(/^v(\d+\.\d+)/)[1]) < 10) {
+        expected = expected
+            .replace("function render ()", "function render()")
+            .replace(new RegExp(/function\(str\)/, "gm"), "function (str)")
+            .replace(`"render":function()`, `"render":function ()`);
+    }
+    return expected;
+}
+
 //@ts-ignore
 test("String returns with zero config", t => {
     // @ts-ignore
@@ -30,13 +41,14 @@ test("String returns with zero config", t => {
         template: templateLiteral,
     };
 
-    const expected = `<!DOCTYPE html><html><head><script src="https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.min.js" ></script><style>.red{color:red}.subcomponent[data-v-123456":function _default() {
+    let expected = `<!DOCTYPE html><html><head><script src="https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.min.js" ></script><style>.red{color:red}.subcomponent[data-v-123456":function _default() {
                 return [{ name: "default" }];
             }}},"data":function data() { return {"msg":"Hello world!","messageOuter":"Say Foo","bar":true,"fakehtml":"\\u003Cp class=\\"red\\"\\u003EFAKEHTML\\u003C\\u002Fp\\u003E"}; },"components":{"foo":{"props":{"hellodata":{"default":"default","type":String,"required":true}},"data":function data() { return {}; },"mixins":[{"methods":{"hello":function(str) {
             console.log(str);
         }}}],"components":{"subcomponent":{"props":{"subdata":{"default":"default","type":String,"required":true}},"data":function data() { return {}; },"render":function(){var _h=this.$createElement;return(this._self._c||_h)("h2",{staticClass:"subcomponent"},[this._v("Hello from "+this._s(this.subdata))])},"_scopeId":"data-v-123456":function(str) {
             console.log(str);
         }}}],"render":function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h1',{staticClass:"red"},[_vm._v(_vm._s(_vm.msg))]),_vm._v(" "),_c('foo',{attrs:{"hellodata":"component"}}),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.bar))]),_vm._v(" "),_c('div',{domProps:{"innerHTML":_vm._s(_vm.fakehtml)}}),_vm._v(" "),_c('h1',[_vm._v(_vm._s(_vm.title))]),_vm._v(" "),_c('p',[_vm._v("Welcome to the "+_vm._s(_vm.title)+" demo. Click a link:")]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.sentence))]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.messageOuter),expression:"messageOuter"}],attrs:{"placeholder":"edit me"},domProps:{"value":(_vm.messageOuter)},on:{"input":function($event){if($event.target.composing){ return; }_vm.messageOuter=$event.target.value}}}),_vm._v(" "),_c('button',{attrs:{"type":"button","name":"button"},on:{"click":function($event){_vm.hello(_vm.messageOuter)}}},[_vm._v(_vm._s(_vm.messageOuter))]),_vm._v(" "),_c('message-comp',{attrs:{"message":_vm.messageOuter}}),_vm._v(" "),_c('users',{attrs:{"users":_vm.users}}),_vm._v(" "),_c('simple')],1)},"staticRenderFns":[]})};"undefined"!=typeof module&&module.exports?module.exports=createApp:this.app=createApp()}).call(this),app.$mount("#app");</script></body></html>`;
+    expected = fixForNode8andUnder(expected);
     return renderer
         .RenderToString("tests/example/views/index/index.vue", data, vueOptions)
         .then(rendered => {
@@ -70,13 +82,14 @@ test("String returns with some config", t => {
         title: "Test",
     };
 
-    const expected = `<!DOCTYPE html lang="no"><html><head><script src="https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.min.js" ></script><style>.red{color:red}.subcomponent[data-v-123456":function _default() {
+    let expected = `<!DOCTYPE html lang="no"><html><head><script src="https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.min.js" ></script><style>.red{color:red}.subcomponent[data-v-123456":function _default() {
                 return [{ name: "default" }];
             }}},"data":function data() { return {"msg":"Hello world!","messageOuter":"Say Foo","bar":true,"fakehtml":"\\u003Cp class=\\"red\\"\\u003EFAKEHTML\\u003C\\u002Fp\\u003E"}; },"components":{"foo":{"props":{"hellodata":{"default":"default","type":String,"required":true}},"data":function data() { return {}; },"mixins":[{"methods":{"hello":function(str) {
             console.log(str);
         }}}],"components":{"subcomponent":{"props":{"subdata":{"default":"default","type":String,"required":true}},"data":function data() { return {}; },"render":function(){var _h=this.$createElement;return(this._self._c||_h)("h2",{staticClass:"subcomponent"},[this._v("Hello from "+this._s(this.subdata))])},"_scopeId":"data-v-123456":function(str) {
             console.log(str);
         }}}],"render":function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h1',{staticClass:"red"},[_vm._v(_vm._s(_vm.msg))]),_vm._v(" "),_c('foo',{attrs:{"hellodata":"component"}}),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.bar))]),_vm._v(" "),_c('div',{domProps:{"innerHTML":_vm._s(_vm.fakehtml)}}),_vm._v(" "),_c('h1',[_vm._v(_vm._s(_vm.title))]),_vm._v(" "),_c('p',[_vm._v("Welcome to the "+_vm._s(_vm.title)+" demo. Click a link:")]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.sentence))]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.messageOuter),expression:"messageOuter"}],attrs:{"placeholder":"edit me"},domProps:{"value":(_vm.messageOuter)},on:{"input":function($event){if($event.target.composing){ return; }_vm.messageOuter=$event.target.value}}}),_vm._v(" "),_c('button',{attrs:{"type":"button","name":"button"},on:{"click":function($event){_vm.hello(_vm.messageOuter)}}},[_vm._v(_vm._s(_vm.messageOuter))]),_vm._v(" "),_c('message-comp',{attrs:{"message":_vm.messageOuter}}),_vm._v(" "),_c('users',{attrs:{"users":_vm.users}}),_vm._v(" "),_c('simple')],1)},"staticRenderFns":[]})};"undefined"!=typeof module&&module.exports?module.exports=createApp:this.app=createApp()}).call(this),app.$mount("#app");</script></body></html>`;
+    expected = fixForNode8andUnder(expected);
     return renderer
         .RenderToString("tests/example/views/index/index.vue", data, vueOptions)
         .then(rendered => {
@@ -102,7 +115,7 @@ test("String returns with full object", async t => {
         template: templateLiteral,
     };
 
-    const expected = `<!DOCTYPE html><html><head><script src="https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.min.js" ></script><style>.red{color:red}.subcomponent[data-v-123456":function _default() {
+    let expected = `<!DOCTYPE html><html><head><script src="https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.min.js" ></script><style>.red{color:red}.subcomponent[data-v-123456":function _default() {
                 return [{ name: "default" }];
             }}},"data":function data() { return {"msg":"Hello world!","messageOuter":"Say Foo","bar":true,"fakehtml":"\\u003Cp class=\\"red\\"\\u003EFAKEHTML\\u003C\\u002Fp\\u003E"}; },"components":{"foo":{"props":{"hellodata":{"default":"default","type":String,"required":true}},"data":function data() { return {}; },"mixins":[{"methods":{"hello":function(str) {
             console.log(str);
@@ -110,6 +123,7 @@ test("String returns with full object", async t => {
             console.log(str);
         }}}],"render":function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h1',{staticClass:"red"},[_vm._v(_vm._s(_vm.msg))]),_vm._v(" "),_c('foo',{attrs:{"hellodata":"component"}}),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.bar))]),_vm._v(" "),_c('div',{domProps:{"innerHTML":_vm._s(_vm.fakehtml)}}),_vm._v(" "),_c('h1',[_vm._v(_vm._s(_vm.title))]),_vm._v(" "),_c('p',[_vm._v("Welcome to the "+_vm._s(_vm.title)+" demo. Click a link:")]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.sentence))]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.messageOuter),expression:"messageOuter"}],attrs:{"placeholder":"edit me"},domProps:{"value":(_vm.messageOuter)},on:{"input":function($event){if($event.target.composing){ return; }_vm.messageOuter=$event.target.value}}}),_vm._v(" "),_c('button',{attrs:{"type":"button","name":"button"},on:{"click":function($event){_vm.hello(_vm.messageOuter)}}},[_vm._v(_vm._s(_vm.messageOuter))]),_vm._v(" "),_c('message-comp',{attrs:{"message":_vm.messageOuter}}),_vm._v(" "),_c('users',{attrs:{"users":_vm.users}}),_vm._v(" "),_c('simple')],1)},"staticRenderFns":[]})};"undefined"!=typeof module&&module.exports?module.exports=createApp:this.app=createApp()}).call(this),app.$mount("#app");</script></body></html>`;
     try {
+        expected = fixForNode8andUnder(expected);
         const rendered = await renderer.RenderToString(vueFile, data, vueOptions);
         const one = rendered.replace(/([\[|\s|\"])data-v-(.*)([\]|\>|\"])/gm, function(match, p1, p2, p3) { return p1 + "data-v-123456" + p3; });
         const two = expected.replace(/([\[|\s|\"])data-v-(.*)([\]|\>|\"])/gm, function(match, p1, p2, p3) { return p1 + "data-v-123456" + p3; });
@@ -123,13 +137,14 @@ test("String returns with full object", async t => {
 test("String returns with no object", t => {
     // @ts-ignore
     const renderer = new Pronto({ rootPath: rootPath, babel: babelConfig });
-    const expected = `<!DOCTYPE html><html><head><script src="https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.min.js" ></script><style>.red{color:red}.subcomponent[data-v-123456":function _default() {
+    let expected = `<!DOCTYPE html><html><head><script src="https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.min.js" ></script><style>.red{color:red}.subcomponent[data-v-123456":function _default() {
                 return [{ name: "default" }];
             }}},"data":function data() { return {"msg":"Hello world!","messageOuter":"Say Foo"}; },"components":{"foo":{"props":{"hellodata":{"default":"default","type":String,"required":true}},"data":function data() { return {}; },"mixins":[{"methods":{"hello":function(str) {
             console.log(str);
         }}}],"components":{"subcomponent":{"props":{"subdata":{"default":"default","type":String,"required":true}},"data":function data() { return {}; },"render":function(){var _h=this.$createElement;return(this._self._c||_h)("h2",{staticClass:"subcomponent"},[this._v("Hello from "+this._s(this.subdata))])},"_scopeId":"data-v-123456":function(str) {
             console.log(str);
         }}}],"render":function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h1',{staticClass:"red"},[_vm._v(_vm._s(_vm.msg))]),_vm._v(" "),_c('foo',{attrs:{"hellodata":"component"}}),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.bar))]),_vm._v(" "),_c('div',{domProps:{"innerHTML":_vm._s(_vm.fakehtml)}}),_vm._v(" "),_c('h1',[_vm._v(_vm._s(_vm.title))]),_vm._v(" "),_c('p',[_vm._v("Welcome to the "+_vm._s(_vm.title)+" demo. Click a link:")]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.sentence))]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.messageOuter),expression:"messageOuter"}],attrs:{"placeholder":"edit me"},domProps:{"value":(_vm.messageOuter)},on:{"input":function($event){if($event.target.composing){ return; }_vm.messageOuter=$event.target.value}}}),_vm._v(" "),_c('button',{attrs:{"type":"button","name":"button"},on:{"click":function($event){_vm.hello(_vm.messageOuter)}}},[_vm._v(_vm._s(_vm.messageOuter))]),_vm._v(" "),_c('message-comp',{attrs:{"message":_vm.messageOuter}}),_vm._v(" "),_c('users',{attrs:{"users":_vm.users}}),_vm._v(" "),_c('simple')],1)},"staticRenderFns":[]})};"undefined"!=typeof module&&module.exports?module.exports=createApp:this.app=createApp()}).call(this),app.$mount("#app");</script></body></html>`;
+    expected = fixForNode8andUnder(expected);
     return renderer
         .RenderToString(vueFile, {}, {})
         .then(rendered => {
@@ -144,11 +159,12 @@ test("String returns with no object", t => {
 test("String returns with propsData", t => {
     // @ts-ignore
     const renderer = new Pronto({ rootPath: rootPath, babel: babelConfig });
-    const expected = `<!DOCTYPE html><html><head><script src="https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.min.js" ></script><style>.red{color:red}.subcomponent[data-v-123456":function(str) {
+    let expected = `<!DOCTYPE html><html><head><script src="https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.min.js" ></script><style>.red{color:red}.subcomponent[data-v-123456":function(str) {
             console.log(str);
         }}}],"components":{"subcomponent":{"props":{"subdata":{"default":"default","type":String,"required":true}},"data":function data() { return {}; },"render":function(){var _h=this.$createElement;return(this._self._c||_h)("h2",{staticClass:"subcomponent"},[this._v("Hello from "+this._s(this.subdata))])},"_scopeId":"data-v-123456":function(str) {
             console.log(str);
         }}}],"render":function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h1',{staticClass:"red"},[_vm._v(_vm._s(_vm.msg))]),_vm._v(" "),_c('foo',{attrs:{"hellodata":"component"}}),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.bar))]),_vm._v(" "),_c('div',{domProps:{"innerHTML":_vm._s(_vm.fakehtml)}}),_vm._v(" "),_c('h1',[_vm._v(_vm._s(_vm.title))]),_vm._v(" "),_c('p',[_vm._v("Welcome to the "+_vm._s(_vm.title)+" demo. Click a link:")]),_vm._v(" "),_c('p',[_vm._v("import fooTransitionExpand from '@foo/styles-animation/src/components/foo-transition-expand.vue';")]),_vm._v(" "),_c('p',[_vm._v("const test = require(\\"foo.vue\\");")]),_vm._v(" "),_c('p',[_vm._v("const bar = require(\\"bar.vue\\");")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.messageOuter),expression:"messageOuter"}],attrs:{"placeholder":"edit me"},domProps:{"value":(_vm.messageOuter)},on:{"input":function($event){if($event.target.composing){ return; }_vm.messageOuter=$event.target.value}}}),_vm._v(" "),_c('button',{attrs:{"type":"button","name":"button"},on:{"click":function($event){_vm.hello(_vm.messageOuter)}}},[_vm._v(_vm._s(_vm.messageOuter))]),_vm._v(" "),_c('message-comp',{attrs:{"message":_vm.messageOuter}}),_vm._v(" "),_c('users',{attrs:{"users":_vm.users}}),_vm._v(" "),_c('simple')],1)},"staticRenderFns":[],"propsData":{}})};"undefined"!=typeof module&&module.exports?module.exports=createApp:this.app=createApp()}).call(this),app.$mount("#app");</script></body></html>`;
+    expected = fixForNode8andUnder(expected);
     return renderer
         .RenderToString(vueFileWithProps, {}, {propsData: {}})
         .then(rendered => {
@@ -174,7 +190,7 @@ test.cb("Stream returns with full object", t => {
         head: {},
         template: templateLiteral,
     };
-    const expected = `<!DOCTYPE html><html><head><script src="https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.min.js" ></script><style>.red{color:red}.subcomponent[data-v-123456":function _default() {
+    let expected = `<!DOCTYPE html><html><head><script src="https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.min.js" ></script><style>.red{color:red}.subcomponent[data-v-123456":function _default() {
                 return [{ name: "default" }];
             }}},"data":function data() { return {"msg":"Hello world!","messageOuter":"Say Foo","bar":true,"fakehtml":"\\u003Cp class=\\"red\\"\\u003EFAKEHTML\\u003C\\u002Fp\\u003E"}; },"components":{"foo":{"props":{"hellodata":{"default":"default","type":String,"required":true}},"data":function data() { return {}; },"mixins":[{"methods":{"hello":function(str) {
             console.log(str);
@@ -182,6 +198,7 @@ test.cb("Stream returns with full object", t => {
             console.log(str);
         }}}],"render":function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h1',{staticClass:"red"},[_vm._v(_vm._s(_vm.msg))]),_vm._v(" "),_c('foo',{attrs:{"hellodata":"component"}}),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.bar))]),_vm._v(" "),_c('div',{domProps:{"innerHTML":_vm._s(_vm.fakehtml)}}),_vm._v(" "),_c('h1',[_vm._v(_vm._s(_vm.title))]),_vm._v(" "),_c('p',[_vm._v("Welcome to the "+_vm._s(_vm.title)+" demo. Click a link:")]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.sentence))]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.messageOuter),expression:"messageOuter"}],attrs:{"placeholder":"edit me"},domProps:{"value":(_vm.messageOuter)},on:{"input":function($event){if($event.target.composing){ return; }_vm.messageOuter=$event.target.value}}}),_vm._v(" "),_c('button',{attrs:{"type":"button","name":"button"},on:{"click":function($event){_vm.hello(_vm.messageOuter)}}},[_vm._v(_vm._s(_vm.messageOuter))]),_vm._v(" "),_c('message-comp',{attrs:{"message":_vm.messageOuter}}),_vm._v(" "),_c('users',{attrs:{"users":_vm.users}}),_vm._v(" "),_c('simple')],1)},"staticRenderFns":[]})};"undefined"!=typeof module&&module.exports?module.exports=createApp:this.app=createApp()}).call(this),app.$mount("#app");</script></body></html>`;
     // @ts-ignore
+    expected = fixForNode8andUnder(expected);
     renderer
         .RenderToStream(vueFile, {}, vueOptions)
         .then(stream => {
@@ -201,7 +218,7 @@ test.cb("Stream returns with full object", t => {
 test.cb("Stream returns with no object", t => {
     // @ts-ignore
     const renderer = new Pronto({ rootPath: rootPath, babel: babelConfig });
-    const expected = `<!DOCTYPE html><html><head><script src="https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.min.js" ></script><style>.red{color:red}.subcomponent[data-v-123456":function _default() {
+    let expected = `<!DOCTYPE html><html><head><script src="https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.min.js" ></script><style>.red{color:red}.subcomponent[data-v-123456":function _default() {
                 return [{ name: "default" }];
             }}},"data":function data() { return {"msg":"Hello world!","messageOuter":"Say Foo"}; },"components":{"foo":{"props":{"hellodata":{"default":"default","type":String,"required":true}},"data":function data() { return {}; },"mixins":[{"methods":{"hello":function(str) {
             console.log(str);
@@ -209,6 +226,7 @@ test.cb("Stream returns with no object", t => {
             console.log(str);
         }}}],"render":function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h1',{staticClass:"red"},[_vm._v(_vm._s(_vm.msg))]),_vm._v(" "),_c('foo',{attrs:{"hellodata":"component"}}),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.bar))]),_vm._v(" "),_c('div',{domProps:{"innerHTML":_vm._s(_vm.fakehtml)}}),_vm._v(" "),_c('h1',[_vm._v(_vm._s(_vm.title))]),_vm._v(" "),_c('p',[_vm._v("Welcome to the "+_vm._s(_vm.title)+" demo. Click a link:")]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.sentence))]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.messageOuter),expression:"messageOuter"}],attrs:{"placeholder":"edit me"},domProps:{"value":(_vm.messageOuter)},on:{"input":function($event){if($event.target.composing){ return; }_vm.messageOuter=$event.target.value}}}),_vm._v(" "),_c('button',{attrs:{"type":"button","name":"button"},on:{"click":function($event){_vm.hello(_vm.messageOuter)}}},[_vm._v(_vm._s(_vm.messageOuter))]),_vm._v(" "),_c('message-comp',{attrs:{"message":_vm.messageOuter}}),_vm._v(" "),_c('users',{attrs:{"users":_vm.users}}),_vm._v(" "),_c('simple')],1)},"staticRenderFns":[]})};"undefined"!=typeof module&&module.exports?module.exports=createApp:this.app=createApp()}).call(this),app.$mount("#app");</script></body></html>`;
     // @ts-ignore
+    expected = fixForNode8andUnder(expected);
     renderer
         .RenderToStream(vueFile, {}, {})
         .then(stream => {
@@ -239,12 +257,13 @@ test.cb("Stream returns with full propsData", t => {
         head: {},
         template: templateLiteral,
     };
-    const expected = `<!DOCTYPE html><html><head><script src="https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.min.js" ></script><style>.red{color:red}.subcomponent[data-v-123456":function(str) {
+    let expected = `<!DOCTYPE html><html><head><script src="https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.min.js" ></script><style>.red{color:red}.subcomponent[data-v-123456":function(str) {
             console.log(str);
         }}}],"components":{"subcomponent":{"props":{"subdata":{"default":"default","type":String,"required":true}},"data":function data() { return {}; },"render":function(){var _h=this.$createElement;return(this._self._c||_h)("h2",{staticClass:"subcomponent"},[this._v("Hello from "+this._s(this.subdata))])},"_scopeId":"data-v-123456":function(str) {
             console.log(str);
         }}}],"render":function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h1',{staticClass:"red"},[_vm._v(_vm._s(_vm.msg))]),_vm._v(" "),_c('foo',{attrs:{"hellodata":"component"}}),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.bar))]),_vm._v(" "),_c('div',{domProps:{"innerHTML":_vm._s(_vm.fakehtml)}}),_vm._v(" "),_c('h1',[_vm._v(_vm._s(_vm.title))]),_vm._v(" "),_c('p',[_vm._v("Welcome to the "+_vm._s(_vm.title)+" demo. Click a link:")]),_vm._v(" "),_c('p',[_vm._v("import fooTransitionExpand from '@foo/styles-animation/src/components/foo-transition-expand.vue';")]),_vm._v(" "),_c('p',[_vm._v("const test = require(\\"foo.vue\\");")]),_vm._v(" "),_c('p',[_vm._v("const bar = require(\\"bar.vue\\");")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.messageOuter),expression:"messageOuter"}],attrs:{"placeholder":"edit me"},domProps:{"value":(_vm.messageOuter)},on:{"input":function($event){if($event.target.composing){ return; }_vm.messageOuter=$event.target.value}}}),_vm._v(" "),_c('button',{attrs:{"type":"button","name":"button"},on:{"click":function($event){_vm.hello(_vm.messageOuter)}}},[_vm._v(_vm._s(_vm.messageOuter))]),_vm._v(" "),_c('message-comp',{attrs:{"message":_vm.messageOuter}}),_vm._v(" "),_c('users',{attrs:{"users":_vm.users}}),_vm._v(" "),_c('simple')],1)},"staticRenderFns":[]})};"undefined"!=typeof module&&module.exports?module.exports=createApp:this.app=createApp()}).call(this),app.$mount("#app");</script></body></html>`;
     // @ts-ignore
+    expected = fixForNode8andUnder(expected);
     renderer
         .RenderToStream(vueFileWithProps, {}, vueOptions)
         .then(stream => {

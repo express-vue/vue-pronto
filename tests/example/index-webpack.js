@@ -67,7 +67,7 @@ app.get("/example2", function(req, res) {
         layout: {
         },
     };
-    res.renderVue("../example2/views/index-webpack.vue", data, vueOptions);
+    res.renderVue("error.vue", data, vueOptions);
 });
 
 app.listen(3000, function() {

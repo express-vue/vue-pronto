@@ -12,7 +12,7 @@ test("it should have a tail", t => {
 });
 
 test.cb("it should end", t => {
-    htmlStream._transform(new Buffer("qux"), "utf-8", () => {
+    htmlStream._transform(Buffer.from("qux"), "utf-8", () => {
         t.pass();
         t.end();
     });
