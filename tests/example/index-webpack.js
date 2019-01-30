@@ -5,7 +5,7 @@ const ExpressVue = require("./express");
 const axios = require("axios").default;
 
 const evrOptions = {
-    rootPath: path.normalize(path.join(__dirname, "views")),
+    pagesPath: path.normalize(path.join(__dirname, "views")),
     webpack: true,
     data: {
         foo: true,

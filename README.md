@@ -64,7 +64,7 @@ renderToStream returns a string from res.renderVue to the client
 
 ```js
 {
-    rootPath: path.join(__dirname, '/../tests'),
+    pagesPath: path.join(__dirname, '/../tests'),
     vueVersion: "2.3.4",
     template: {
         body: {
