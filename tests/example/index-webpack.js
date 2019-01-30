@@ -9,6 +9,7 @@ const evrOptions = {
     webpack: true,
     data: {
         foo: true,
+        globalData: true,
     },
     head: {
         title: "Test",

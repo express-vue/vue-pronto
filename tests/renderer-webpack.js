@@ -69,7 +69,7 @@ test("String returns with some config", t => {
 //@ts-ignore
 test("String returns with full object", async t => {
     // @ts-ignore
-    const renderer = new Pronto({ pagesPath: pagesPath});
+    const renderer = new Pronto({ pagesPath: pagesPath, data: {globalData: true}});
     const data = {
         bar: true,
         fakehtml: '<p class="red">FAKEHTML</p>',
@@ -81,7 +81,7 @@ test("String returns with full object", async t => {
         template: templateLiteral,
     };
 
-    const expected = `<!DOCTYPE html><html><head><script>window.__INITIAL_STATE__ = {"bar":true,"fakehtml":"\\u003Cp class=\\"red\\"\\u003EFAKEHTML\\u003C\\u002Fp\\u003E"}</script></head><body><div id="app"><div data-server-rendered="true"><h1 class="red">Hello world!</h1> <div><h2>Hello from component</h2> <button type="button" name="button">component</button> <h2 class="subcomponent" data-v-2fafd565>Hello from subcomponent</h2></div> <p>true</p> <div><p class="red">FAKEHTML</p></div> <h1></h1> <p>Welcome to the  demo. Click a link:</p> <p></p> <input placeholder="edit me" value="Say Foo"> <button type="button" name="button">Say Foo</button> <div><h1>Say Foo</h1></div> <div><ul><li><a href="/users/default" class="test">default</a></li></ul></div> <div><p class="simple">Hello From Component in node_modules</p></div></div></div><script src="/expressvue/bundles/index-webpack.vue.client.js"></script></body></html>`;
+    const expected = `<!DOCTYPE html><html><head><script>window.__INITIAL_STATE__ = {"globalData":true,"bar":true,"fakehtml":"\\u003Cp class=\\"red\\"\\u003EFAKEHTML\\u003C\\u002Fp\\u003E"}</script></head><body><div id="app"><div data-server-rendered="true"><h1 class="red">Hello world!</h1> <div><h2>Hello from component</h2> <button type="button" name="button">component</button> <h2 class="subcomponent" data-v-2fafd565>Hello from subcomponent</h2></div> <p>true</p> <div><p class="red">FAKEHTML</p></div> <h1></h1> <p>Welcome to the  demo. Click a link:</p> <p></p> <input placeholder="edit me" value="Say Foo"> <button type="button" name="button">Say Foo</button> <div><h1>Say Foo</h1></div> <div><ul><li><a href="/users/default" class="test">default</a></li></ul></div> <div><p class="simple">Hello From Component in node_modules</p></div></div></div><script src="/expressvue/bundles/index-webpack.vue.client.js"></script></body></html>`;
     try {
         const rendered = await renderer.RenderToString(vueFile, data, vueOptions);
         t.is(rendered, expected);
@@ -112,7 +112,7 @@ test.cb("Stream returns with full object", t => {
         bar: true,
         fakehtml: '<p class="red">FAKEHTML</p>',
     };
-    const renderer = new Pronto({ pagesPath: pagesPath, data: data });
+    const renderer = new Pronto({ pagesPath: pagesPath, data: {globalData: true} });
 
     const templateLiteral = `<!DOCTYPE html>\n<html lang="en">\n<head>\n<title>{{title}}</title>\n<style>{{css}}</style>\n</head>\n<body>\n<h1>FOOOOO</h1>\n<!--vue-ssr-outlet-->\n</body>\n</html>`;
 
@@ -120,11 +120,11 @@ test.cb("Stream returns with full object", t => {
         head: {},
         template: templateLiteral,
     };
-    const expected = `<!DOCTYPE html><html><head><script>window.__INITIAL_STATE__ = {}</script></head><body><div id="app"><div data-server-rendered="true"><h1 class="red">Hello world!</h1> <div><h2>Hello from component</h2> <button type="button" name="button">component</button> <h2 class="subcomponent" data-v-2fafd565>Hello from subcomponent</h2></div> <p></p> <div></div> <h1></h1> <p>Welcome to the  demo. Click a link:</p> <p></p> <input placeholder="edit me" value="Say Foo"> <button type="button" name="button">Say Foo</button> <div><h1>Say Foo</h1></div> <div><ul><li><a href="/users/default" class="test">default</a></li></ul></div> <div><p class="simple">Hello From Component in node_modules</p></div></div></div><script src="/expressvue/bundles/index-webpack.vue.client.js"></script></body></html>`;
+    const expected = `<!DOCTYPE html><html><head><script>window.__INITIAL_STATE__ = {"globalData":true,"bar":true,"fakehtml":"\\u003Cp class=\\"red\\"\\u003EFAKEHTML\\u003C\\u002Fp\\u003E"}</script></head><body><div id="app"><div data-server-rendered="true"><h1 class="red">Hello world!</h1> <div><h2>Hello from component</h2> <button type="button" name="button">component</button> <h2 class="subcomponent" data-v-2fafd565>Hello from subcomponent</h2></div> <p>true</p> <div><p class="red">FAKEHTML</p></div> <h1></h1> <p>Welcome to the  demo. Click a link:</p> <p></p> <input placeholder="edit me" value="Say Foo"> <button type="button" name="button">Say Foo</button> <div><h1>Say Foo</h1></div> <div><ul><li><a href="/users/default" class="test">default</a></li></ul></div> <div><p class="simple">Hello From Component in node_modules</p></div></div></div><script src="/expressvue/bundles/index-webpack.vue.client.js"></script></body></html>`;
     // @ts-ignore
     renderer
         // @ts-ignore
-        .RenderToStream(vueFile, {}, vueOptions)
+        .RenderToStream(vueFile, data, vueOptions)
         .then(stream => {
             let rendered = "";
             stream.on("data", chunk => (rendered += chunk));
