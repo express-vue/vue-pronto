@@ -103,7 +103,7 @@ function init(options, renderer) {
  */
 async function use(expressApp, options) {
     const renderer = new ProntoWebpack(options);
-    await renderer.WebpackCompile();
+    await renderer.Bootstrap();
     const expressVue = init(options, renderer);
     expressApp.use(expressVue);
 
