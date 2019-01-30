@@ -95,25 +95,32 @@ function init(options, renderer) {
     return expressVueMiddleware;
 }
 
-function use(expressApp, options) {
+/**
+ * Takes an ExpressJS Instance and options and returns a promise
+ * @param {Object} expressApp ExpressJS instance
+ * @param {Object} options
+ * @returns {Promise<Object>}
+ */
+async function use(expressApp, options) {
     const renderer = new ProntoWebpack(options);
+    await renderer.WebpackCompile();
     const expressVue = init(options, renderer);
     expressApp.use(expressVue);
 
     expressApp.get(
         "/expressvue/bundles/:bundlename",
         function(req, res, next) {
-            renderer.getBundleFile(req.path)
-            .then(bundle => {
-                res.send(bundle);
-            })
-            .catch(error => {
+            const bundle = renderer.getBundleFile(req.path);
+            if (!bundle) {
                 res.status(404);
                 res.send("file not found");
-            });
-
+            } else {
+                res.setHeader("Content-Type", "application/javascript");
+                res.send(bundle);
+            }
         },
     );
+    return expressApp;
 }
 
 module.exports.init = init;
