@@ -167,7 +167,6 @@ export default context => {
     t.is(result, expected);
 });
 
-
 test("Gets Modified App", t => {
     const result = Config.AppConfig("foo", "bar");
     const expected = `bar`;
