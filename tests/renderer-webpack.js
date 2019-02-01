@@ -105,7 +105,6 @@ test("String returns with no object", t => {
         });
 });
 
-
 //@ts-ignore
 test.cb("Stream returns with full object", t => {
     // @ts-ignore
