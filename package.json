@@ -103,7 +103,8 @@
             "lib/**/*.js"
         ],
         "exclude": [
-            "lib/assets/**/*"
+            "lib/assets/**/*",
+            "lib/renderer/process-style.js"
         ],
         "reporter": [
             "text-summary"
