@@ -166,3 +166,22 @@ export default context => {
 `;
     t.is(result, expected);
 });
+
+
+test("Gets Modified App", t => {
+    const result = Config.AppConfig("foo", "bar");
+    const expected = `bar`;
+    t.is(result, expected);
+});
+
+test("Gets Modified Client", t => {
+    const result = Config.ClientConfig("bar");
+    const expected = `bar`;
+    t.is(result, expected);
+});
+
+test("Gets Modified Server", t => {
+    const result = Config.ServerConfig("qux");
+    const expected = `qux`;
+    t.is(result, expected);
+});
