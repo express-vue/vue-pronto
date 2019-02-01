@@ -105,6 +105,7 @@ test("String returns with no object", t => {
         });
 });
 
+
 //@ts-ignore
 test.cb("Stream returns with full object", t => {
     // @ts-ignore
@@ -158,4 +159,20 @@ test.cb("Stream returns with no object", t => {
         .catch(error => {
             t.fail(error);
         });
+});
+
+// @ts-ignore
+test("Bootstrap prerenders", async t => {
+    process.env.VUE_DEV = "false";
+    const renderer = new Pronto({ pagesPath: pagesPath });
+    const result = await renderer.Bootstrap();
+    t.is(result, true);
+});
+
+// @ts-ignore
+test("Bootstrap does not prerender", async t => {
+    process.env.VUE_DEV = "true";
+    const renderer = new Pronto({ pagesPath: pagesPath });
+    const result = await renderer.Bootstrap();
+    t.is(result, false);
 });
