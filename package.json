@@ -46,7 +46,7 @@
         "generate-release": "^1.1.1",
         "nodemon": "^1.18.3",
         "nsp": "^3.2.1",
-        "nyc": "^11.9.0",
+        "nyc": "^13.2.0",
         "simple-vue-component-test": "^1.0.0",
         "sleep-ms": "^2.0.1",
         "tslint": "^5.11.0",
