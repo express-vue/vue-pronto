@@ -32,3 +32,5 @@ node_modules
 *.clinic-flame
 *.clinic-doctor.html
 *.clinic-flame.html
+
+.expressvue
