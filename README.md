@@ -64,13 +64,31 @@ renderToStream returns a string from res.renderVue to the client
 
 ```js
 {
-    rootPath: path.join(__dirname, '/../tests'),
+    pagesPath: path.join(__dirname, '/../tests'),
     vueVersion: "2.3.4",
     template: {
         body: {
             start: '<body><div id="app">',
             end: '</div></body>'
         }
+    },
+    webpack: {
+        /**
+         * Webpack Server and Client Configs go here
+         * Takes webpack configs and uses webpack-merge to merge them
+         * */
+        client: {},
+        server: {}
+    },
+    vue: {
+        /**
+         * This is where you put the string versions of the
+         * entry.js for server and client
+         * app is for the app entry.js
+         * */
+        app: 'string',
+        client: 'string',
+        server: 'string',
     },
     head: {
         metas: [

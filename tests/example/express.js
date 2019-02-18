@@ -1,6 +1,6 @@
 // @ts-check
 "use strict";
-const Pronto = require("../../lib");
+const {ProntoVueify, ProntoWebpack} = require("../../lib");
 
 /**
  * @typedef VueOptionsType
@@ -18,6 +18,7 @@ const Pronto = require("../../lib");
  * @prop {String} rootPath
  * @prop {String} vueVersion
  * @prop {VueOptionsType} head
+ * @prop {Object | boolean} webpack
  */
 
 /**
@@ -25,9 +26,14 @@ const Pronto = require("../../lib");
  * @param {ConfigObjectType} options
  * @returns {Function}
  */
-function init(options) {
+function init(options, renderer) {
     //Make new object
-    const Renderer = new Pronto(options);
+    let Renderer = {};
+    if (renderer) {
+        Renderer = renderer;
+    } else {
+        Renderer = new ProntoVueify(options);
+    }
 
     /**
      * @param {Object} req
@@ -89,4 +95,33 @@ function init(options) {
     return expressVueMiddleware;
 }
 
+/**
+ * Takes an ExpressJS Instance and options and returns a promise
+ * @param {Object} expressApp ExpressJS instance
+ * @param {Object} options
+ * @returns {Promise<Object>}
+ */
+async function use(expressApp, options) {
+    const renderer = new ProntoWebpack(options);
+    await renderer.Bootstrap();
+    const expressVue = init(options, renderer);
+    expressApp.use(expressVue);
+
+    expressApp.get(
+        "/expressvue/bundles/:bundlename",
+        function(req, res, next) {
+            const bundle = renderer.getBundleFile(req.path);
+            if (!bundle) {
+                res.status(404);
+                res.send("file not found");
+            } else {
+                res.setHeader("Content-Type", "application/javascript");
+                res.send(bundle);
+            }
+        },
+    );
+    return expressApp;
+}
+
 module.exports.init = init;
+module.exports.use = use;

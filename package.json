@@ -1,63 +1,79 @@
 {
     "name": "vue-pronto",
-    "version": "1.8.2",
+    "version": "1.9.0-3",
     "description": "Seriously fast vue server renderer",
     "main": "lib/index.js",
+    "publishConfig": {
+        "tag": "webpack"
+    },
     "files": [
         "lib/**/*.js",
         ".babelrc"
     ],
     "dependencies": {
-        "@types/deepmerge": "^2.1.0",
-        "@types/object-hash": "^1.2.0",
-        "autoprefixer": "^9.1.5",
-        "browserify": "^16.2.2",
+        "autoprefixer": "^9.4.7",
+        "babel-loader": "^8.0.5",
+        "browserify": "^16.2.3",
         "clean-css": "^4.2.1",
-        "deepmerge": "^2.1.1",
+        "css-loader": "^2.1.0",
+        "deepmerge": "^3.2.0",
         "find": "^0.2.9",
         "find-node-modules": "^1.0.4",
         "js-to-string": "^0.4.5",
-        "lru-cache": "^4.1.3",
+        "lru-cache": "^5.1.1",
         "object-hash": "^1.3.0",
         "require-from-string": "^2.0.2",
         "uglify-js": "^3.4.8",
-        "vue": "^2.5.17",
-        "vue-server-renderer": "^2.5.17",
-        "vue-template-compiler": "^2.5.17",
+        "vue": "^2.6.6",
+        "vue-loader": "^15.6.2",
+        "vue-server-renderer": "^2.6.6",
+        "vue-template-compiler": "^2.6.6",
         "vueify": "^9.4.1",
-        "xss": "^0.3.8"
+        "webpack": "^4.29.5",
+        "webpack-chain": "^5.2.0",
+        "webpack-merge": "^4.2.1",
+        "xss": "^1.0.3"
     },
     "devDependencies": {
-        "@types/autoprefixer": "^6.7.3",
-        "@types/chalk": "^2.2.0",
-        "@types/clean-css": "^3.4.30",
+        "@babel/core": "^7.3.3",
+        "@babel/preset-env": "^7.3.1",
+        "@babel/preset-es2015": "^7.0.0-beta.53",
+        "@types/autoprefixer": "^9.1.1",
+        "@types/clean-css": "^3.4.31",
         "@types/lru-cache": "^4.1.1",
-        "@types/node": "^10.9.2",
+        "@types/memory-fs": "^0.3.2",
+        "@types/mkdirp": "^0.5.2",
+        "@types/node": "^10.12.26",
+        "@types/object-hash": "^1.2.0",
         "@types/require-from-string": "^1.2.0",
         "@types/uglify-js": "^3.0.3",
-        "@types/vue": "^2.0.0",
-        "ava": "^0.25.0",
+        "@types/webpack": "^4.4.24",
+        "@types/webpack-merge": "^4.1.3",
+        "ava": "^1.2.1",
         "axios": "^0.18.0",
         "babel-core": "^6.26.3",
         "babel-preset-env": "^1.7.0",
-        "codecov": "^3.0.4",
+        "codecov": "^3.2.0",
         "express": "^4.16.3",
         "flame": "^0.1.20",
         "generate-release": "^1.1.1",
-        "nodemon": "^1.18.3",
-        "nsp": "^3.2.1",
-        "nyc": "^11.9.0",
+        "nodemon": "^1.18.10",
+        "nyc": "^13.3.0",
         "simple-vue-component-test": "^1.0.0",
         "sleep-ms": "^2.0.1",
         "tslint": "^5.11.0",
-        "typescript": "^2.9.2"
+        "typescript": "^3.3.3"
     },
     "scripts": {
         "release": "npm test && generate-release",
-        "debug": "nodemon --inspect tests/example/index.js",
-        "start": "node tests/example/index.js",
-        "debug-windows": "npm run build-windows && node --inspect tests/example/index.js",
-        "start-windows": "npm run build-windows && node tests/example/index.js",
+        "debug": "nodemon --inspect tests/example/index-webpack.js",
+        "start": "node tests/example/index-webpack.js",
+        "debug-windows": "npm run build-windows && node --inspect tests/example/index-webpack.js",
+        "start-windows": "npm run build-windows && node tests/example/index-webpack.js",
+        "debug-vueify": "nodemon --inspect tests/example/index-vueify.js",
+        "start-vueify": "node tests/example/index-vueify.js",
+        "debug-vueify-windows": "npm run build-windows && node --inspect tests/example/index-vueify.js",
+        "start-vueify-windows": "npm run build-windows && node tests/example/index-vueify.js",
         "lint": "tslint --project tsconfig.json",
         "pretest": "npm run lint",
         "test": "TEST=true nyc ava",
@@ -69,23 +85,26 @@
             "tests/**/*.js",
             "!tests/example/**/*.js"
         ],
-        "source": [
+        "sources": [
             "lib/**/*.js"
         ],
         "concurrency": 5,
         "failFast": false,
         "powerAssert": false,
-        "require": [
-            "babel-register"
-        ],
-        "babel": "inherit"
+        "babel": {
+            "testOptions": {
+                "babelrc": false,
+                "configFile": false
+            }
+        }
     },
     "nyc": {
         "include": [
             "lib/**/*.js"
         ],
         "exclude": [
-            "lib/assets/**/*"
+            "lib/assets/**/*",
+            "lib/renderer/process-style.js"
         ],
         "reporter": [
             "text-summary"
