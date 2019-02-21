@@ -15,7 +15,7 @@
         "clean-css": "^4.2.1",
         "deepmerge": "^2.1.1",
         "find": "^0.2.9",
-        "find-node-modules": "^1.0.4",
+        "find-node-modules": "^2.0.0",
         "js-to-string": "^0.4.5",
         "lru-cache": "^4.1.3",
         "object-hash": "^1.3.0",
