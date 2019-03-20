@@ -25,7 +25,7 @@
         "vue-server-renderer": "^2.5.17",
         "vue-template-compiler": "^2.5.17",
         "vueify": "^9.4.1",
-        "xss": "^0.3.8"
+        "xss": "^1.0.4"
     },
     "devDependencies": {
         "@types/autoprefixer": "^6.7.3",
