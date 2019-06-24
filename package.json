@@ -3,9 +3,6 @@
     "version": "1.9.1",
     "description": "Seriously fast vue server renderer",
     "main": "lib/index.js",
-    "publishConfig": {
-        "tag": "webpack"
-    },
     "files": [
         "lib/**/*.js",
         ".babelrc"
