@@ -1,11 +1,8 @@
 {
     "name": "vue-pronto",
-    "version": "1.9.0",
+    "version": "1.10.1",
     "description": "Seriously fast vue server renderer",
     "main": "lib/index.js",
-    "publishConfig": {
-        "tag": "webpack"
-    },
     "files": [
         "lib/**/*.js",
         ".babelrc"
@@ -22,6 +19,7 @@
         "find-node-modules": "^2.0.0",
         "js-to-string": "^0.4.5",
         "lru-cache": "^5.1.1",
+        "mz": "^2.7.0",
         "object-hash": "^1.3.0",
         "require-from-string": "^2.0.2",
         "uglify-js": "^3.6.0",
@@ -59,7 +57,6 @@
         "express": "^4.17.1",
         "flame": "^0.1.20",
         "generate-release": "^1.1.1",
-        "mz": "^2.7.0",
         "nodemon": "^1.19.1",
         "nyc": "^13.3.0",
         "simple-vue-component-test": "^1.0.0",
