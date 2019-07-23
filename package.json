@@ -13,7 +13,7 @@
         "babel-loader": "^8.0.6",
         "browserify": "^16.2.3",
         "clean-css": "^4.2.1",
-        "css-loader": "^2.1.1",
+        "css-loader": "^3.1.0",
         "deepmerge": "^3.3.0",
         "find": "^0.2.9",
         "find-node-modules": "^2.0.0",
