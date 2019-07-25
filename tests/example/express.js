@@ -108,7 +108,7 @@ async function use(expressApp, options) {
     expressApp.use(expressVue);
 
     expressApp.get(
-        "/expressvue/bundles/:bundlename",
+        "/expressvue/bundles/*",
         function(req, res, next) {
             const bundle = renderer.getBundleFile(req.path);
             if (!bundle) {
