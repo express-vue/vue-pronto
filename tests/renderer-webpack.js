@@ -2,11 +2,10 @@
 const test = require("ava");
 const path = require("path");
 const Pronto = require("../lib").ProntoWebpack;
-
+const fs = require("fs");
 const vueFile = path.join("index/index-webpack.vue");
-const vueFileWithProps = path.join("index/index-with-props.vue");
 const pagesPath = path.normalize(path.join(__dirname, "../tests/example/views"));
-
+const expectedPath = path.join(__dirname, "expected");
 //@ts-ignore
 test("String returns with zero config", async t => {
     // @ts-ignore
@@ -21,8 +20,8 @@ test("String returns with zero config", async t => {
         title: "Test",
         template: templateLiteral,
     };
-
-    const expected = `<!DOCTYPE html><html><head><script>window.__INITIAL_STATE__ = {"bar":true,"fakehtml":"\\u003Cp class=\\"red\\"\\u003EFAKEHTML\\u003C\\u002Fp\\u003E"}</script></head><body><div id="app"><div data-server-rendered="true"><h1 class="red">Hello world!</h1> <div><h2>Hello from component</h2> <button type="button" name="button">component</button> <h2 class="subcomponent" data-v-2fafd565>Hello from subcomponent</h2></div> <p>true</p> <div><p class="red">FAKEHTML</p></div> <h1></h1> <p>Welcome to the  demo. Click a link:</p> <p></p> <input placeholder="edit me" value="Say Foo"> <button type="button" name="button">Say Foo</button> <div><h1>Say Foo</h1></div> <div><ul><li><a href="/users/default" class="test">default</a></li></ul></div> <div><p class="simple">Hello From Component in node_modules</p></div></div></div><script src="/expressvue/bundles/index/index-webpack/client.bundle.js"></script></body></html>`;
+    const expectedFile = path.join(expectedPath, "string-zero-config.html");
+    const expected = fs.readFileSync(expectedFile).toString();
     return renderer
         .RenderToString("index/index-webpack.vue", data, vueOptions)
         .then(rendered => {
@@ -55,8 +54,8 @@ test("String returns with some config", async t => {
     const vueOptions = {
         title: "Test",
     };
-
-    const expected = `<!DOCTYPE html lang="no"><html><head><script>window.__INITIAL_STATE__ = {"bar":true,"fakehtml":"\\u003Cp class=\\"red\\"\\u003EFAKEHTML\\u003C\\u002Fp\\u003E"}</script></head><body id="foo"><div id="app"><div data-server-rendered="true"><h1 class="red">Hello world!</h1> <div><h2>Hello from component</h2> <button type="button" name="button">component</button> <h2 class="subcomponent" data-v-2fafd565>Hello from subcomponent</h2></div> <p>true</p> <div><p class="red">FAKEHTML</p></div> <h1></h1> <p>Welcome to the  demo. Click a link:</p> <p></p> <input placeholder="edit me" value="Say Foo"> <button type="button" name="button">Say Foo</button> <div><h1>Say Foo</h1></div> <div><ul><li><a href="/users/default" class="test">default</a></li></ul></div> <div><p class="simple">Hello From Component in node_modules</p></div></div></div><script src="/expressvue/bundles/index/index-webpack/client.bundle.js"></script></body></html>`;
+    const expectedFile = path.join(expectedPath, "string-some-config.html");
+    const expected = fs.readFileSync(expectedFile).toString();
     return renderer
         .RenderToString("index/index-webpack.vue", data, vueOptions)
         .then(rendered => {
@@ -81,8 +80,8 @@ test("String returns with full object", async t => {
         title: "Test",
         template: templateLiteral,
     };
-
-    const expected = `<!DOCTYPE html><html><head><script>window.__INITIAL_STATE__ = {"globalData":true,"bar":true,"fakehtml":"\\u003Cp class=\\"red\\"\\u003EFAKEHTML\\u003C\\u002Fp\\u003E"}</script></head><body><div id="app"><div data-server-rendered="true"><h1 class="red">Hello world!</h1> <div><h2>Hello from component</h2> <button type="button" name="button">component</button> <h2 class="subcomponent" data-v-2fafd565>Hello from subcomponent</h2></div> <p>true</p> <div><p class="red">FAKEHTML</p></div> <h1></h1> <p>Welcome to the  demo. Click a link:</p> <p></p> <input placeholder="edit me" value="Say Foo"> <button type="button" name="button">Say Foo</button> <div><h1>Say Foo</h1></div> <div><ul><li><a href="/users/default" class="test">default</a></li></ul></div> <div><p class="simple">Hello From Component in node_modules</p></div></div></div><script src="/expressvue/bundles/index/index-webpack/client.bundle.js"></script></body></html>`;
+    const expectedFile = path.join(expectedPath, "string-full-config.html");
+    const expected = fs.readFileSync(expectedFile).toString();
     try {
         const rendered = await renderer.RenderToString(vueFile, data, vueOptions);
         t.is(rendered, expected);
@@ -95,7 +94,8 @@ test("String returns with full object", async t => {
 test("String returns with no object", async t => {
     // @ts-ignore
     const renderer = new Pronto({ pagesPath: pagesPath});
-    const expected = `<!DOCTYPE html><html><head><script>window.__INITIAL_STATE__ = {}</script></head><body><div id="app"><div data-server-rendered="true"><h1 class="red">Hello world!</h1> <div><h2>Hello from component</h2> <button type="button" name="button">component</button> <h2 class="subcomponent" data-v-2fafd565>Hello from subcomponent</h2></div> <p></p> <div></div> <h1></h1> <p>Welcome to the  demo. Click a link:</p> <p></p> <input placeholder="edit me" value="Say Foo"> <button type="button" name="button">Say Foo</button> <div><h1>Say Foo</h1></div> <div><ul><li><a href="/users/default" class="test">default</a></li></ul></div> <div><p class="simple">Hello From Component in node_modules</p></div></div></div><script src="/expressvue/bundles/index/index-webpack/client.bundle.js"></script></body></html>`;
+    const expectedFile = path.join(expectedPath, "string-zero-object.html");
+    const expected = fs.readFileSync(expectedFile).toString();
     return renderer
         .RenderToString(vueFile, {}, {})
         .then(rendered => {
@@ -121,7 +121,8 @@ test.cb("Stream returns with full object", t => {
         head: {},
         template: templateLiteral,
     };
-    const expected = `<!DOCTYPE html><html><head><script>window.__INITIAL_STATE__ = {"globalData":true,"bar":true,"fakehtml":"\\u003Cp class=\\"red\\"\\u003EFAKEHTML\\u003C\\u002Fp\\u003E"}</script></head><body><div id="app"><div data-server-rendered="true"><h1 class="red">Hello world!</h1> <div><h2>Hello from component</h2> <button type="button" name="button">component</button> <h2 class="subcomponent" data-v-2fafd565>Hello from subcomponent</h2></div> <p>true</p> <div><p class="red">FAKEHTML</p></div> <h1></h1> <p>Welcome to the  demo. Click a link:</p> <p></p> <input placeholder="edit me" value="Say Foo"> <button type="button" name="button">Say Foo</button> <div><h1>Say Foo</h1></div> <div><ul><li><a href="/users/default" class="test">default</a></li></ul></div> <div><p class="simple">Hello From Component in node_modules</p></div></div></div><script src="/expressvue/bundles/index/index-webpack/client.bundle.js"></script></body></html>`;
+    const expectedFile = path.join(expectedPath, "stream-full-object.html");
+    const expected = fs.readFileSync(expectedFile).toString();
     // @ts-ignore
     renderer
         // @ts-ignore
@@ -143,7 +144,8 @@ test.cb("Stream returns with full object", t => {
 test.cb("Stream returns with no object", t => {
     // @ts-ignore
     const renderer = new Pronto({ pagesPath: pagesPath });
-    const expected = `<!DOCTYPE html><html><head><script>window.__INITIAL_STATE__ = {}</script></head><body><div id="app"><div data-server-rendered="true"><h1 class="red">Hello world!</h1> <div><h2>Hello from component</h2> <button type="button" name="button">component</button> <h2 class="subcomponent" data-v-2fafd565>Hello from subcomponent</h2></div> <p></p> <div></div> <h1></h1> <p>Welcome to the  demo. Click a link:</p> <p></p> <input placeholder="edit me" value="Say Foo"> <button type="button" name="button">Say Foo</button> <div><h1>Say Foo</h1></div> <div><ul><li><a href="/users/default" class="test">default</a></li></ul></div> <div><p class="simple">Hello From Component in node_modules</p></div></div></div><script src="/expressvue/bundles/index/index-webpack/client.bundle.js"></script></body></html>`;
+    const expectedFile = path.join(expectedPath, "stream-no-object.html");
+    const expected = fs.readFileSync(expectedFile).toString();
     // @ts-ignore
     renderer
         // @ts-ignore
