@@ -1,5 +1,5 @@
 const test = require("ava");
-const {Config} = require("../../lib/utils");
+const {config} = require("../../lib/utils");
 const {VueLoaderPlugin} = require("vue-loader");
 const merge = require("webpack-merge");
 
@@ -78,12 +78,12 @@ const defaultClient = {
 };
 
 test("Default Server Config", t => {
-    const result = Config.Bootstrap({}, {});
+    const result = config.bootstrap({}, {});
     t.deepEqual(result.server, defaultServer);
 });
 
 test("Default Client Config", t => {
-    const result = Config.Bootstrap({}, {});
+    const result = config.bootstrap({}, {});
     t.deepEqual(result.client, defaultClient);
 });
 
@@ -102,7 +102,7 @@ test("Merges Module Server Config", t => {
             ],
         },
     };
-    const result = Config.Bootstrap(extraOptions, {});
+    const result = config.bootstrap(extraOptions, {});
     const expected = merge.smart(defaultServer, extraOptions);
     t.deepEqual(result.server, expected);
 });
@@ -122,13 +122,13 @@ test("Merges Module Client Config", t => {
             ],
         },
     };
-    const result = Config.Bootstrap({}, extraOptions);
+    const result = config.bootstrap({}, extraOptions);
     const expected = merge.smart(defaultClient, extraOptions);
     t.deepEqual(result.client, expected);
 });
 
 test("Gets Default App", t => {
-    const result = Config.AppConfig("foo");
+    const result = config.appConfig("foo");
     const expected = `import Vue from "vue";
 import App from "foo";
 
@@ -144,7 +144,7 @@ export function createApp(data) {
 });
 
 test("Gets Default Client", t => {
-    const result = Config.ClientConfig();
+    const result = config.clientConfig();
     const expected = `import { createApp } from "./app";
 const store = window.__INITIAL_STATE__;
 const { app } = createApp(store ? store : {});
@@ -154,7 +154,7 @@ app.$mount("#app");
 });
 
 test("Gets Default Server", t => {
-    const result = Config.ServerConfig();
+    const result = config.serverConfig();
     const expected = `import { createApp } from "./app";
 export default context => {
     return new Promise((resolve, reject) => {
@@ -168,19 +168,19 @@ export default context => {
 });
 
 test("Gets Modified App", t => {
-    const result = Config.AppConfig("foo", "bar");
+    const result = config.appConfig("foo", "bar");
     const expected = `bar`;
     t.is(result, expected);
 });
 
 test("Gets Modified Client", t => {
-    const result = Config.ClientConfig("bar");
+    const result = config.clientConfig("bar");
     const expected = `bar`;
     t.is(result, expected);
 });
 
 test("Gets Modified Server", t => {
-    const result = Config.ServerConfig("qux");
+    const result = config.serverConfig("qux");
     const expected = `qux`;
     t.is(result, expected);
 });

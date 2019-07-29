@@ -1,7 +1,7 @@
 const test = require("ava");
-const Utils = require("../../lib/utils");
+const {StreamUtils} = require("../../lib/utils");
 
-const htmlStream = new Utils.StreamUtils("foo", "bar");
+const htmlStream = new StreamUtils("foo", "bar");
 
 test("it should have a head", t => {
     t.is(htmlStream.head , "foo");
