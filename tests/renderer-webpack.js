@@ -22,14 +22,8 @@ test("String returns with zero config", async t => {
     };
     const expectedFile = path.join(expectedPath, "string-zero-config.html");
     const expected = fs.readFileSync(expectedFile).toString();
-    return renderer
-        .RenderToString("index/index-webpack.vue", data, vueOptions)
-        .then(rendered => {
-            t.is(rendered, expected);
-        })
-        .catch(error => {
-            t.fail(error);
-        });
+    const rendered = await renderer.RenderToString("index/index-webpack.vue", data, vueOptions);
+    t.is(rendered, expected);
 });
 
 //@ts-ignore
@@ -56,14 +50,8 @@ test("String returns with some config", async t => {
     };
     const expectedFile = path.join(expectedPath, "string-some-config.html");
     const expected = fs.readFileSync(expectedFile).toString();
-    return renderer
-        .RenderToString("index/index-webpack.vue", data, vueOptions)
-        .then(rendered => {
-            t.is(rendered, expected);
-        })
-        .catch(error => {
-            t.fail(error);
-        });
+    const rendered = await renderer.RenderToString("index/index-webpack.vue", data, vueOptions);
+    t.is(rendered, expected);
 });
 
 //@ts-ignore
@@ -82,12 +70,8 @@ test("String returns with full object", async t => {
     };
     const expectedFile = path.join(expectedPath, "string-full-config.html");
     const expected = fs.readFileSync(expectedFile).toString();
-    try {
-        const rendered = await renderer.RenderToString(vueFile, data, vueOptions);
-        t.is(rendered, expected);
-    } catch (error) {
-        t.fail(error);
-    }
+    const rendered = await renderer.RenderToString(vueFile, data, vueOptions);
+    t.is(rendered, expected);
 });
 
 //@ts-ignore
@@ -96,14 +80,8 @@ test("String returns with no object", async t => {
     const renderer = new Pronto({ pagesPath: pagesPath});
     const expectedFile = path.join(expectedPath, "string-zero-object.html");
     const expected = fs.readFileSync(expectedFile).toString();
-    return renderer
-        .RenderToString(vueFile, {}, {})
-        .then(rendered => {
-            t.is(rendered, expected);
-        })
-        .catch(error => {
-            t.fail(error);
-        });
+    const rendered = await renderer.RenderToString(vueFile, {}, {});
+    t.is(rendered, expected);
 });
 
 //@ts-ignore

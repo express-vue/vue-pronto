@@ -1,5 +1,5 @@
 const test = require("ava");
-const Utils = require("../../lib/utils");
+const {buildHead} = require("../../lib/utils");
 
 test.cb("General Head", t => {
     const head = {
@@ -21,7 +21,7 @@ test.cb("General Head", t => {
         ],
     };
     const expected = `<meta name="application-name" content="Name of my application" /><meta name="description" content="A description of the page" id="desc" /><meta name="twitter:title" content="Content Title" /><meta property="fb:app_id" content="123456789" /><meta property="og:title" content="Content Title" /><link rel="icon" type="image/png" href="/assets/favicons/favicon-32x32.png" sizes="32x32" /><script src="/assets/scripts/hammer.min.js" ></script><script charset="utf-8" src="/assets/scripts/vue-touch.min.js" ></script><link rel="stylesheet" href="/assets/rendered/style.css" type="text/css" /><link rel="stylesheet" href="/assets/rendered/style.css" type="text/css" />`;
-    const result = Utils.BuildHead(head);
+    const result = buildHead(head);
     t.is(result, expected);
     t.end();
 });
@@ -38,7 +38,7 @@ test.cb("Script Head", t => {
         ],
     };
     const expected = `<script src="/assets/scripts/hammer.min.js" ></script><script type="text/javascript" src="/assets/scripts/hammer.min.js" ></script><script charset="utf-8" src="/assets/scripts/vue-touch.min.js" ></script><script src="/assets/scripts/hammer.min.js" async ></script><script src="/assets/scripts/hammer.min.js" defer ></script><script src="/assets/scripts/hammer.min.js" async defer ></script>`;
-    const result = Utils.BuildHead(head);
+    const result = buildHead(head);
     t.is(result, expected);
     t.end();
 });
@@ -53,7 +53,7 @@ test.cb("Style Head", t => {
         ],
     };
     const expected = `<link rel="stylesheet" href="/assets/rendered/style.css" type="text/css" /><link rel="stylesheet" href="/assets/rendered/style.css" type="text/css" /><link rel="stylesheet" href="/assets/rendered/style.css" type="text/css" /><link rel="stylesheet" href="/assets/rendered/style.css" type="text/css" />`;
-    const result = Utils.BuildHead(head);
+    const result = buildHead(head);
     t.is(result, expected);
     t.end();
 });
@@ -63,7 +63,7 @@ test.cb("Head Title", t => {
         title: "Test Title",
     };
     const expected = `<title>Test Title</title>`;
-    const result = Utils.BuildHead(head);
+    const result = buildHead(head);
     t.is(result, expected);
     t.end();
 });
@@ -82,7 +82,7 @@ test.cb("Structured Data", t => {
         },
     };
     const expected = `<script type="application/ld+json">{"@context":"http://schema.org","@type":"Organization","url":"http://www.your-company-site.com","contactPoint":[{"@type":"ContactPoint","telephone":"+1-401-555-1212","contactType":"customer service"}]}</script>`;
-    const result = Utils.BuildHead(head);
+    const result = buildHead(head);
     t.is(result, expected);
     t.end();
 });
@@ -95,7 +95,7 @@ test.cb("Meta Error", t => {
     };
 
     const error = t.throws(() => {
-        Utils.BuildHead(head);
+        buildHead(head);
     }, Error);
     const expected = "WARNING - DEPRECATED: It looks like you're using the old meta object, please migrate to the new one";
     t.is(error.message, expected);
