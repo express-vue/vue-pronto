@@ -148,7 +148,7 @@ test("Gets Default Client", t => {
     const expected = `import { createApp } from "./app";
 const store = window.__INITIAL_STATE__;
 const { app } = createApp(store ? store : {});
-app.$mount("#app");
+app.$mount("#app", true);
 `;
     t.is(result, expected);
 });
