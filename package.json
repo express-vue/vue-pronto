@@ -8,6 +8,8 @@
         ".babelrc"
     ],
     "dependencies": {
+        "@typescript-eslint/eslint-plugin": "^1.13.0",
+        "@typescript-eslint/parser": "^1.13.0",
         "autoprefixer": "^9.6.1",
         "babel-eslint": "^10.0.2",
         "babel-loader": "^8.0.6",
@@ -15,6 +17,8 @@
         "clean-css": "^4.2.1",
         "css-loader": "^3.1.0",
         "deepmerge": "^3.3.0",
+        "eslint": "^6.1.0",
+        "eslint-plugin-vue": "^5.2.3",
         "find": "^0.3.0",
         "find-node-modules": "^2.0.0",
         "js-to-string": "^0.4.5",
@@ -22,6 +26,7 @@
         "mz": "^2.7.0",
         "object-hash": "^1.3.0",
         "require-from-string": "^2.0.2",
+        "typescript": "^3.5.3",
         "uglify-js": "^3.6.0",
         "vue": "^2.6.10",
         "vue-loader": "^15.7.1",
@@ -60,9 +65,7 @@
         "nodemon": "^1.19.1",
         "nyc": "^14.1.1",
         "simple-vue-component-test": "^1.0.0",
-        "sleep-ms": "^2.0.1",
-        "tslint": "^5.18.0",
-        "typescript": "^3.5.3"
+        "sleep-ms": "^2.0.1"
     },
     "scripts": {
         "release": "npm test && generate-release",
@@ -74,7 +77,7 @@
         "start-vueify": "node tests/example/index-vueify.js",
         "debug-vueify-windows": "npm run build-windows && node --inspect tests/example/index-vueify.js",
         "start-vueify-windows": "npm run build-windows && node tests/example/index-vueify.js",
-        "lint": "tslint --project tsconfig.json",
+        "lint": "eslint lib",
         "pretest": "npm run lint",
         "test": "TEST=true nyc ava",
         "coverage": "nyc report --reporter=lcov > coverage.lcov && codecov",
@@ -109,6 +112,38 @@
             "text-summary"
         ]
     },
+    "eslintConfig": {
+        "env": {
+            "es6": true,
+            "node": true
+        },
+        "extends": [
+            "eslint:recommended"
+        ],
+        "globals": {
+            "Atomics": "readonly",
+            "SharedArrayBuffer": "readonly"
+        },
+        "parserOptions": {
+            "ecmaVersion": 2018,
+            "sourceType": "module",
+            "project": "./tsconfig.json"
+        },
+        "parser": "@typescript-eslint/parser",
+        "plugins": [
+            "vue",
+            "@typescript-eslint"
+        ],
+        "rules": {
+            "no-useless-escape": "off",
+            "no-prototype-builtins": "off"
+        }
+    },
+    "eslintIgnore": [
+        "coverage",
+        "example",
+        "tests"
+    ],
     "author": "Daniel Cherubini",
     "license": "ISC",
     "repository": {
