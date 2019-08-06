@@ -112,6 +112,38 @@
             "text-summary"
         ]
     },
+    "eslintConfig": {
+        "env": {
+            "es6": true,
+            "node": true
+        },
+        "extends": [
+            "eslint:recommended"
+        ],
+        "globals": {
+            "Atomics": "readonly",
+            "SharedArrayBuffer": "readonly"
+        },
+        "parserOptions": {
+            "ecmaVersion": 2018,
+            "sourceType": "module",
+            "project": "./tsconfig.json"
+        },
+        "parser": "@typescript-eslint/parser",
+        "plugins": [
+            "vue",
+            "@typescript-eslint"
+        ],
+        "rules": {
+            "no-useless-escape": "off",
+            "no-prototype-builtins": "off"
+        }
+    },
+    "eslintIgnore": [
+        "coverage",
+        "example",
+        "tests"
+    ],
     "author": "Daniel Cherubini",
     "license": "ISC",
     "repository": {
