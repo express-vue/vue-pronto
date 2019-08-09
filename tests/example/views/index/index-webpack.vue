@@ -14,7 +14,7 @@
     <simple></simple>
   </div>
 </template>
- 
+
 <script>
 import axios from "axios";
 import foo from "../../components/component.vue";
@@ -37,9 +37,9 @@ export default {
     },
     data: function () {
         return {
-            bar: this.$root.bar || true,
-            sentence: this.$root.sentence || "",
-            fakehtml: this.$root.fakehtml || "",
+            bar: false,
+            sentence: '',
+            fakehtml: '',
             msg: 'Hello world!',
             messageOuter: 'Say Foo'
         }
@@ -53,9 +53,9 @@ export default {
     mixins: [helloMixin]
 }
 </script>
- 
+
 <style>
   .red {
     color: #f00;
   }
-</style> 
+</style>
