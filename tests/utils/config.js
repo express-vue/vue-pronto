@@ -133,54 +133,53 @@ test("Gets Default App", t => {
 import App from "foo";
 
 export function createApp(data) {
+    const mergedData = Object.assign(App.data ? App.data() : {}, data);
+    App.data = () => (mergedData)
+ 
     const app = new Vue({
-        data,
         render: h => h(App),
     });
     return { app };
-}
-`;
-    t.is(result, expected);
+}`;
+    t.is(result.app, expected);
 });
 
 test("Gets Default Client", t => {
-    const result = config.clientConfig();
+    const result = config.appConfig();
     const expected = `import { createApp } from "./app";
 const store = window.__INITIAL_STATE__;
 const { app } = createApp(store ? store : {});
 app.$mount("#app");
 `;
-    t.is(result, expected);
+    t.is(result.client, expected);
 });
 
 test("Gets Default Server", t => {
-    const result = config.serverConfig();
+    const result = config.appConfig();
     const expected = `import { createApp } from "./app";
 export default context => {
     return new Promise((resolve, reject) => {
         const { app } = createApp(context);
-
         resolve(app);
     });
-};
-`;
-    t.is(result, expected);
+};`;
+    t.is(result.server, expected);
 });
 
 test("Gets Modified App", t => {
-    const result = config.appConfig("foo", "bar");
+    const result = config.appConfig("foo", {app: "bar", client: "bar"});
     const expected = `bar`;
-    t.is(result, expected);
+    t.is(result.app, expected);
 });
 
 test("Gets Modified Client", t => {
-    const result = config.clientConfig("bar");
+    const result = config.appConfig("foo", {app: "bar", client: "bar"});
     const expected = `bar`;
-    t.is(result, expected);
+    t.is(result.client, expected);
 });
 
 test("Gets Modified Server", t => {
-    const result = config.serverConfig("qux");
+    const result = config.appConfig("foo", {app:"qux", client: "bar"});
     const expected = `qux`;
-    t.is(result, expected);
+    t.is(result.server, expected);
 });
