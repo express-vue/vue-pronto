@@ -42,7 +42,7 @@
         "@babel/core": "^7.5.5",
         "@babel/preset-env": "^7.5.5",
         "@babel/preset-es2015": "^7.0.0-beta.53",
-        "@types/autoprefixer": "^9.5.0",
+        "@types/autoprefixer": "^9.6.0",
         "@types/clean-css": "^4.2.1",
         "@types/lru-cache": "^5.1.0",
         "@types/memory-fs": "^0.3.2",
