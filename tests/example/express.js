@@ -106,11 +106,12 @@ async function use(expressApp, options) {
     await renderer.Bootstrap();
     const expressVue = init(options, renderer);
     expressApp.use(expressVue);
-
+    
     expressApp.get(
         "/expressvue/bundles/*",
         function(req, res, next) {
-            const bundle = renderer.getBundleFile(req.path);
+            const fileUrl = req.baseUrl + req.path;
+            const bundle = renderer.getBundleFile(fileUrl);
             if (!bundle) {
                 res.status(404);
                 res.send("file not found");
