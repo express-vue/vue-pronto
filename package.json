@@ -8,7 +8,7 @@
         ".babelrc"
     ],
     "dependencies": {
-        "@typescript-eslint/eslint-plugin": "^1.13.0",
+        "@typescript-eslint/eslint-plugin": "^2.3.0",
         "@typescript-eslint/parser": "^1.13.0",
         "autoprefixer": "^9.6.1",
         "babel-eslint": "^10.0.2",
