@@ -16,7 +16,7 @@
         "browserify": "^16.3.0",
         "clean-css": "^4.2.1",
         "css-loader": "^3.1.0",
-        "deepmerge": "^3.3.0",
+        "deepmerge": "^4.2.2",
         "eslint": "^6.1.0",
         "eslint-plugin-vue": "^5.2.3",
         "find": "^0.3.0",
