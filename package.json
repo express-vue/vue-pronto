@@ -31,7 +31,7 @@
         "vue": "^2.6.11",
         "vue-loader": "^15.7.1",
         "vue-server-renderer": "^2.6.10",
-        "vue-template-compiler": "^2.6.10",
+        "vue-template-compiler": "^2.6.11",
         "vueify": "^9.4.1",
         "webpack": "^4.37.0",
         "webpack-chain": "^6.0.0",
