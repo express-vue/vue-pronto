@@ -30,7 +30,7 @@
         "uglify-js": "^3.6.0",
         "vue": "^2.6.10",
         "vue-loader": "^15.7.1",
-        "vue-server-renderer": "^2.6.10",
+        "vue-server-renderer": "^2.6.11",
         "vue-template-compiler": "^2.6.10",
         "vueify": "^9.4.1",
         "webpack": "^4.37.0",
