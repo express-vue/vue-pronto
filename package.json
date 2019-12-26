@@ -18,7 +18,7 @@
         "css-loader": "^3.1.0",
         "deepmerge": "^3.3.0",
         "eslint": "^6.1.0",
-        "eslint-plugin-vue": "^5.2.3",
+        "eslint-plugin-vue": "^6.0.2",
         "find": "^0.3.0",
         "find-node-modules": "^2.0.0",
         "js-to-string": "^0.4.5",
