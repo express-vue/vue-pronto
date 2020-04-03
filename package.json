@@ -63,7 +63,7 @@
         "flame": "^0.1.20",
         "generate-release": "^1.1.1",
         "nodemon": "^1.19.1",
-        "nyc": "^14.1.1",
+        "nyc": "^15.0.1",
         "simple-vue-component-test": "^1.0.0",
         "sleep-ms": "^2.0.1"
     },
