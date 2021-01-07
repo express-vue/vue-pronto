@@ -180,7 +180,7 @@ test("Gets Modified Client", t => {
 });
 
 test("Gets Modified Server", t => {
-    const result = config.appConfig("foo", {app:"qux", client: "bar"});
-    const expected = `qux`;
+    const result = config.appConfig("foo", {app:"bar", client: "bar", server: "bar"});
+    const expected = `bar`;
     t.is(result.server, expected);
 });
