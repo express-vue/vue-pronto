@@ -27,6 +27,31 @@ test("String returns with zero config", async t => {
 });
 
 //@ts-ignore
+test("String returns with zero config from defined folder, into a defined context folder", async t => {
+    // @ts-ignore
+    const renderer = new Pronto({pagesPath: pagesPath});
+    const data = {
+        bar: true,
+        fakehtml: '<p class="red">FAKEHTML</p>',
+    };
+    const templateLiteral = `<!DOCTYPE html>\n<html lang="en">\n<head>\n<title>{{title}}</title>\n<style>{{css}}</style>\n</head>\n<body>\n<h1>FOOOOO</h1>\n<!--vue-ssr-outlet-->\n</body>\n</html>`;
+
+    const vueOptions = {
+        title: "Test",
+        template: templateLiteral,
+        page: {
+            path: path.normalize(path.join(__dirname, "../tests/example/otherviews")),
+            context: 'otherviews'
+        }
+    };
+    const expectedFile = path.join(expectedPath, "string-zero-config-other.html");
+    const expected = fs.readFileSync(expectedFile).toString();
+    const rendered = await renderer.RenderToString("index/index-webpack.vue", data, vueOptions);
+    t.is(rendered, expected);
+    t.true(fs.existsSync(path.join(__dirname, '../.expressvue/otherviews/index')))
+});
+
+//@ts-ignore
 test("String returns with some config", async t => {
     // @ts-ignore
     const renderer = new Pronto({
